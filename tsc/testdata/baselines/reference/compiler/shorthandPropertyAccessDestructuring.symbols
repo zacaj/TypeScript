@@ -1,0 +1,21 @@
+//// [tests/cases/compiler/shorthandPropertyAccessDestructuring.ts] ////
+
+=== shorthandPropertyAccessDestructuring.ts ===
+declare const a: { b: { c: string } };
+>a : Symbol(a, Decl(shorthandPropertyAccessDestructuring.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccessDestructuring.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccessDestructuring.ts, 0, 23))
+
+// Not allowed as a destructuring target
+let target = { c: "" };
+>target : Symbol(target, Decl(shorthandPropertyAccessDestructuring.ts, 3, 3))
+>c : Symbol(c, Decl(shorthandPropertyAccessDestructuring.ts, 3, 14))
+
+({ target.c } = a.b);
+>target.c : Symbol(c, Decl(shorthandPropertyAccessDestructuring.ts, 3, 14))
+>target : Symbol(target, Decl(shorthandPropertyAccessDestructuring.ts, 3, 3))
+>c : Symbol(c, Decl(shorthandPropertyAccessDestructuring.ts, 3, 14))
+>a.b : Symbol(b, Decl(shorthandPropertyAccessDestructuring.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccessDestructuring.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccessDestructuring.ts, 0, 18))
+

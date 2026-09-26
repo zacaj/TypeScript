@@ -704,6 +704,8 @@ func (d *astDecoder) createChildrenNode(kind ast.Kind, data uint32, childIndices
 		equalsToken := d.nodeAt(it.nextIf(mask, 4))
 		objectAssignmentInitializer := d.nodeAt(it.nextIf(mask, 5))
 		return d.factory.NewShorthandPropertyAssignment(modifiers, name, postfixToken, typeNode, equalsToken, objectAssignmentInitializer), nil
+	case ast.KindShorthandPropertyAccessAssignment:
+		return d.factory.NewShorthandPropertyAccessAssignment(d.singleChild(childIndices)), nil
 	case ast.KindDeleteExpression:
 		return d.factory.NewDeleteExpression(d.singleChild(childIndices)), nil
 	case ast.KindTypeOfExpression:

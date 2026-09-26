@@ -609,6 +609,7 @@ func (c *Checker) findFirstIllegalModifier(node *ast.Node) *ast.Node {
 	case ast.KindClassStaticBlockDeclaration,
 		ast.KindPropertyAssignment,
 		ast.KindShorthandPropertyAssignment,
+		ast.KindShorthandPropertyAccessAssignment,
 		ast.KindNamespaceExportDeclaration,
 		ast.KindMissingDeclaration:
 		return core.Find(node.ModifierNodes(), ast.IsModifier)
@@ -1094,6 +1095,8 @@ func (c *Checker) checkGrammarObjectLiteralExpression(node *ast.ObjectLiteralExp
 				c.addErrorOrSuggestion(true, createDiagnosticForNode(name, diagnostics.A_bigint_literal_cannot_be_used_as_a_property_name))
 			}
 
+			currentKind = DeclarationMeaningPropertyAssignment
+		case ast.KindShorthandPropertyAccessAssignment:
 			currentKind = DeclarationMeaningPropertyAssignment
 		case ast.KindMethodDeclaration:
 			currentKind = DeclarationMeaningMethod

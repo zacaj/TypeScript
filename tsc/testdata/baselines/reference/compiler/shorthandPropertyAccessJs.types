@@ -1,0 +1,20 @@
+//// [tests/cases/compiler/shorthandPropertyAccessJs.ts] ////
+
+=== a.js ===
+const a = { b: { c: 1 } };
+>a : { b: { c: number; }; }
+>{ b: { c: 1 } } : { b: { c: number; }; }
+>b : { c: number; }
+>{ c: 1 } : { c: number; }
+>c : number
+>1 : 1
+
+const o = { a.b.c };
+>o : { c: number; }
+>{ a.b.c } : { c: number; }
+>a.b.c : number
+>a.b : { c: number; }
+>a : { b: { c: number; }; }
+>b : { c: number; }
+>c : number
+

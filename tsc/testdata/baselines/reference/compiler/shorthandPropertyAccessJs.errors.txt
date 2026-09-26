@@ -1,0 +1,9 @@
+a.js(2,13): error TS8041: Shorthand property expressions can only be used in TypeScript files.
+
+
+==== a.js (1 errors) ====
+    const a = { b: { c: 1 } };
+    const o = { a.b.c };
+                ~~~~~
+!!! error TS8041: Shorthand property expressions can only be used in TypeScript files.
+    

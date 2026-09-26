@@ -1,0 +1,140 @@
+//// [tests/cases/compiler/shorthandPropertyAccess.ts] ////
+
+=== shorthandPropertyAccess.ts ===
+declare const a: { b: { c: string }, arr: { name: number }[], default: boolean };
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+>arr : Symbol(arr, Decl(shorthandPropertyAccess.ts, 0, 36))
+>name : Symbol(name, Decl(shorthandPropertyAccess.ts, 0, 43))
+>default : Symbol(default, Decl(shorthandPropertyAccess.ts, 0, 61))
+
+declare const maybe: { inner?: { value: string } } | undefined;
+>maybe : Symbol(maybe, Decl(shorthandPropertyAccess.ts, 1, 13))
+>inner : Symbol(inner, Decl(shorthandPropertyAccess.ts, 1, 22))
+>value : Symbol(value, Decl(shorthandPropertyAccess.ts, 1, 32))
+
+declare const nullable: { id: number } | null;
+>nullable : Symbol(nullable, Decl(shorthandPropertyAccess.ts, 2, 13))
+>id : Symbol(id, Decl(shorthandPropertyAccess.ts, 2, 25))
+
+declare function f(): { x: string };
+>f : Symbol(f, Decl(shorthandPropertyAccess.ts, 2, 46))
+>x : Symbol(x, Decl(shorthandPropertyAccess.ts, 3, 23))
+
+declare const foo: string;
+>foo : Symbol(foo, Decl(shorthandPropertyAccess.ts, 4, 13))
+
+// Property access chains
+export const o1 = { a.b };
+>o1 : Symbol(o1, Decl(shorthandPropertyAccess.ts, 7, 12))
+>a.b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+
+export const o2 = { a.b.c };
+>o2 : Symbol(o2, Decl(shorthandPropertyAccess.ts, 8, 12))
+>a.b.c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+>a.b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+
+export const o3 = { maybe?.inner?.value };
+>o3 : Symbol(o3, Decl(shorthandPropertyAccess.ts, 9, 12))
+>maybe?.inner?.value : Symbol(value, Decl(shorthandPropertyAccess.ts, 1, 32))
+>maybe?.inner : Symbol(inner, Decl(shorthandPropertyAccess.ts, 1, 22))
+>maybe : Symbol(maybe, Decl(shorthandPropertyAccess.ts, 1, 13))
+>inner : Symbol(inner, Decl(shorthandPropertyAccess.ts, 1, 22))
+>value : Symbol(value, Decl(shorthandPropertyAccess.ts, 1, 32))
+
+export const o4 = { nullable!.id };
+>o4 : Symbol(o4, Decl(shorthandPropertyAccess.ts, 10, 12))
+>nullable!.id : Symbol(id, Decl(shorthandPropertyAccess.ts, 2, 25))
+>nullable : Symbol(nullable, Decl(shorthandPropertyAccess.ts, 2, 13))
+>id : Symbol(id, Decl(shorthandPropertyAccess.ts, 2, 25))
+
+export const o5 = { a.arr[0].name };
+>o5 : Symbol(o5, Decl(shorthandPropertyAccess.ts, 11, 12))
+>a.arr[0].name : Symbol(name, Decl(shorthandPropertyAccess.ts, 0, 43))
+>a.arr : Symbol(arr, Decl(shorthandPropertyAccess.ts, 0, 36))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>arr : Symbol(arr, Decl(shorthandPropertyAccess.ts, 0, 36))
+>name : Symbol(name, Decl(shorthandPropertyAccess.ts, 0, 43))
+
+export const o6 = { (f()).x };
+>o6 : Symbol(o6, Decl(shorthandPropertyAccess.ts, 12, 12))
+>(f()).x : Symbol(x, Decl(shorthandPropertyAccess.ts, 3, 23))
+>f : Symbol(f, Decl(shorthandPropertyAccess.ts, 2, 46))
+>x : Symbol(x, Decl(shorthandPropertyAccess.ts, 3, 23))
+
+export const o7 = { a.default };
+>o7 : Symbol(o7, Decl(shorthandPropertyAccess.ts, 13, 12))
+>a.default : Symbol(default, Decl(shorthandPropertyAccess.ts, 0, 61))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>default : Symbol(default, Decl(shorthandPropertyAccess.ts, 0, 61))
+
+export const o8 = { maybe!.inner!.value! };
+>o8 : Symbol(o8, Decl(shorthandPropertyAccess.ts, 14, 12))
+>maybe!.inner!.value : Symbol(value, Decl(shorthandPropertyAccess.ts, 1, 32))
+>maybe!.inner : Symbol(inner, Decl(shorthandPropertyAccess.ts, 1, 22))
+>maybe : Symbol(maybe, Decl(shorthandPropertyAccess.ts, 1, 13))
+>inner : Symbol(inner, Decl(shorthandPropertyAccess.ts, 1, 22))
+>value : Symbol(value, Decl(shorthandPropertyAccess.ts, 1, 32))
+
+export const o9 = { a.b.c, foo, other: 1, method() { return 1; }, ...a.b };
+>o9 : Symbol(o9, Decl(shorthandPropertyAccess.ts, 15, 12))
+>a.b.c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+>a.b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+>foo : Symbol(foo, Decl(shorthandPropertyAccess.ts, 15, 26))
+>other : Symbol(other, Decl(shorthandPropertyAccess.ts, 15, 31))
+>method : Symbol(method, Decl(shorthandPropertyAccess.ts, 15, 41))
+>a.b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+
+export const o10 = {
+>o10 : Symbol(o10, Decl(shorthandPropertyAccess.ts, 17, 12))
+
+    a
+>a        .b        .c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+>a        .b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+
+        .b
+>b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+
+        .c,
+>c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+
+};
+
+class C {
+>C : Symbol(C, Decl(shorthandPropertyAccess.ts, 21, 2))
+
+    value = 1;
+>value : Symbol(C.value, Decl(shorthandPropertyAccess.ts, 23, 9))
+
+    get() {
+>get : Symbol(C.get, Decl(shorthandPropertyAccess.ts, 24, 14))
+
+        return { this.value };
+>this.value : Symbol(C.value, Decl(shorthandPropertyAccess.ts, 23, 9))
+>this : Symbol(C, Decl(shorthandPropertyAccess.ts, 21, 2))
+>value : Symbol(C.value, Decl(shorthandPropertyAccess.ts, 23, 9))
+    }
+}
+
+// Contextual typing / assignability
+const t1: { c: number } = { a.b.c };
+>t1 : Symbol(t1, Decl(shorthandPropertyAccess.ts, 31, 5))
+>c : Symbol(c, Decl(shorthandPropertyAccess.ts, 31, 11))
+>a.b.c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+>a.b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccess.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccess.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccess.ts, 0, 23))
+

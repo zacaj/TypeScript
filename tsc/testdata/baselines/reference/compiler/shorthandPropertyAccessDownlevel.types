@@ -1,0 +1,30 @@
+//// [tests/cases/compiler/shorthandPropertyAccessDownlevel.ts] ////
+
+=== shorthandPropertyAccessDownlevel.ts ===
+declare const maybe: { inner?: { value: string, other: number } } | undefined;
+>maybe : { inner?: { value: string; other: number; }; } | undefined
+>inner : { value: string; other: number; } | undefined
+>value : string
+>other : number
+
+export const value = 1;
+>value : 1
+>1 : 1
+
+export const o = { maybe?.inner?.value, maybe!.inner!.other! };
+>o : { value: string | undefined; other: number; }
+>{ maybe?.inner?.value, maybe!.inner!.other! } : { value: string | undefined; other: number; }
+>maybe?.inner?.value : string | undefined
+>maybe?.inner : { value: string; other: number; } | undefined
+>maybe : { inner?: { value: string; other: number; }; } | undefined
+>inner : { value: string; other: number; } | undefined
+>value : string | undefined
+>maybe!.inner!.other! : number
+>maybe!.inner!.other : number
+>maybe!.inner! : { value: string; other: number; }
+>maybe!.inner : { value: string; other: number; } | undefined
+>maybe! : { inner?: { value: string; other: number; }; }
+>maybe : { inner?: { value: string; other: number; }; } | undefined
+>inner : { value: string; other: number; } | undefined
+>other : number
+

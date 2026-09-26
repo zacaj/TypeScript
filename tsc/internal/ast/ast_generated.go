@@ -249,237 +249,238 @@ type JSDocCommentBase struct {
 // ──────────────────────────────────────────────────────────────────────
 
 type (
-	TokenNode                         = Node
-	IdentifierNode                    = Node
-	PrivateIdentifierNode             = Node
-	QualifiedNameNode                 = Node
-	ComputedPropertyNameNode          = Node
-	DecoratorNode                     = Node
-	EmptyStatementNode                = Node
-	IfStatementNode                   = Node
-	DoStatementNode                   = Node
-	WhileStatementNode                = Node
-	ForStatementNode                  = Node
-	ForInOrOfStatementNode            = Node
-	BreakStatementNode                = Node
-	ContinueStatementNode             = Node
-	ReturnStatementNode               = Node
-	WithStatementNode                 = Node
-	SwitchStatementNode               = Node
-	CaseBlockNode                     = Node
-	CaseOrDefaultClauseNode           = Node
-	ThrowStatementNode                = Node
-	TryStatementNode                  = Node
-	CatchClauseNode                   = Node
-	DebuggerStatementNode             = Node
-	LabeledStatementNode              = Node
-	ExpressionStatementNode           = Node
-	BlockNode                         = Node
-	VariableStatementNode             = Node
-	VariableDeclarationNode           = Node
-	VariableDeclarationListNode       = Node
-	BindingPatternNode                = Node
-	ParameterDeclarationNode          = Node
-	BindingElementNode                = Node
-	MissingDeclarationNode            = Node
-	FunctionDeclarationNode           = Node
-	ClassDeclarationNode              = Node
-	ClassExpressionNode               = Node
-	HeritageClauseNode                = Node
-	InterfaceDeclarationNode          = Node
-	TypeAliasDeclarationNode          = Node
-	EnumMemberNode                    = Node
-	EnumDeclarationNode               = Node
-	ModuleBlockNode                   = Node
-	NotEmittedStatementNode           = Node
-	NotEmittedTypeElementNode         = Node
-	ImportDeclarationNode             = Node
-	ExternalModuleReferenceNode       = Node
-	NamespaceImportNode               = Node
-	NamedImportsNode                  = Node
-	ExportAssignmentNode              = Node
-	NamespaceExportDeclarationNode    = Node
-	NamespaceExportNode               = Node
-	NamedExportsNode                  = Node
-	ExportSpecifierNode               = Node
-	CallSignatureDeclarationNode      = Node
-	ConstructSignatureDeclarationNode = Node
-	ConstructorDeclarationNode        = Node
-	GetAccessorDeclarationNode        = Node
-	SetAccessorDeclarationNode        = Node
-	IndexSignatureDeclarationNode     = Node
-	MethodSignatureDeclarationNode    = Node
-	MethodDeclarationNode             = Node
-	PropertySignatureDeclarationNode  = Node
-	PropertyDeclarationNode           = Node
-	SemicolonClassElementNode         = Node
-	ClassStaticBlockDeclarationNode   = Node
-	OmittedExpressionNode             = Node
-	KeywordExpressionNode             = Node
-	StringLiteralNode                 = Node
-	NumericLiteralNode                = Node
-	BigIntLiteralNode                 = Node
-	RegularExpressionLiteralNode      = Node
-	NoSubstitutionTemplateLiteralNode = Node
-	BinaryExpressionNode              = Node
-	PrefixUnaryExpressionNode         = Node
-	PostfixUnaryExpressionNode        = Node
-	YieldExpressionNode               = Node
-	ArrowFunctionNode                 = Node
-	FunctionExpressionNode            = Node
-	AsExpressionNode                  = Node
-	SatisfiesExpressionNode           = Node
-	ConditionalExpressionNode         = Node
-	PropertyAccessExpressionNode      = Node
-	ElementAccessExpressionNode       = Node
-	CallExpressionNode                = Node
-	NewExpressionNode                 = Node
-	MetaPropertyNode                  = Node
-	NonNullExpressionNode             = Node
-	SpreadElementNode                 = Node
-	TemplateExpressionNode            = Node
-	TemplateSpanNode                  = Node
-	TaggedTemplateExpressionNode      = Node
-	ParenthesizedExpressionNode       = Node
-	ArrayLiteralExpressionNode        = Node
-	ObjectLiteralExpressionNode       = Node
-	SpreadAssignmentNode              = Node
-	PropertyAssignmentNode            = Node
-	ShorthandPropertyAssignmentNode   = Node
-	DeleteExpressionNode              = Node
-	TypeOfExpressionNode              = Node
-	VoidExpressionNode                = Node
-	AwaitExpressionNode               = Node
-	TypeAssertionNode                 = Node
-	KeywordTypeNodeNode               = Node
-	UnionTypeNodeNode                 = Node
-	IntersectionTypeNodeNode          = Node
-	ConditionalTypeNodeNode           = Node
-	TypeOperatorNodeNode              = Node
-	InferTypeNodeNode                 = Node
-	ArrayTypeNodeNode                 = Node
-	IndexedAccessTypeNodeNode         = Node
-	TypeReferenceNodeNode             = Node
-	ExpressionWithTypeArgumentsNode   = Node
-	LiteralTypeNodeNode               = Node
-	ThisTypeNodeNode                  = Node
-	TypePredicateNodeNode             = Node
-	ImportAttributeNode               = Node
-	ImportAttributesNode              = Node
-	TypeQueryNodeNode                 = Node
-	MappedTypeNodeNode                = Node
-	TypeLiteralNodeNode               = Node
-	TupleTypeNodeNode                 = Node
-	NamedTupleMemberNode              = Node
-	OptionalTypeNodeNode              = Node
-	RestTypeNodeNode                  = Node
-	ParenthesizedTypeNodeNode         = Node
-	FunctionTypeNodeNode              = Node
-	ConstructorTypeNodeNode           = Node
-	TemplateHeadNode                  = Node
-	TemplateMiddleNode                = Node
-	TemplateTailNode                  = Node
-	TemplateLiteralTypeNodeNode       = Node
-	TemplateLiteralTypeSpanNode       = Node
-	SyntheticExpressionNode           = Node
-	PartiallyEmittedExpressionNode    = Node
-	JsxElementNode                    = Node
-	JsxAttributesNode                 = Node
-	JsxNamespacedNameNode             = Node
-	JsxOpeningElementNode             = Node
-	JsxSelfClosingElementNode         = Node
-	JsxFragmentNode                   = Node
-	JsxOpeningFragmentNode            = Node
-	JsxClosingFragmentNode            = Node
-	JsxAttributeNode                  = Node
-	JsxSpreadAttributeNode            = Node
-	JsxClosingElementNode             = Node
-	JsxExpressionNode                 = Node
-	JsxTextNode                       = Node
-	SyntaxListNode                    = Node
-	JSDocNode                         = Node
-	JSDocTypeExpressionNode           = Node
-	JSDocNonNullableTypeNode          = Node
-	JSDocNullableTypeNode             = Node
-	JSDocAllTypeNode                  = Node
-	JSDocVariadicTypeNode             = Node
-	JSDocOptionalTypeNode             = Node
-	JSDocTypeTagNode                  = Node
-	JSDocUnknownTagNode               = Node
-	JSDocTemplateTagNode              = Node
-	JSDocReturnTagNode                = Node
-	JSDocPublicTagNode                = Node
-	JSDocPrivateTagNode               = Node
-	JSDocProtectedTagNode             = Node
-	JSDocReadonlyTagNode              = Node
-	JSDocOverrideTagNode              = Node
-	JSDocDeprecatedTagNode            = Node
-	JSDocSeeTagNode                   = Node
-	JSDocImplementsTagNode            = Node
-	JSDocAugmentsTagNode              = Node
-	JSDocSatisfiesTagNode             = Node
-	JSDocThrowsTagNode                = Node
-	JSDocThisTagNode                  = Node
-	JSDocImportTagNode                = Node
-	JSDocCallbackTagNode              = Node
-	JSDocOverloadTagNode              = Node
-	JSDocTypedefTagNode               = Node
-	JSDocSignatureNode                = Node
-	JSDocNameReferenceNode            = Node
-	SourceFileNode                    = Node
-	ModuleDeclarationNode             = Node
-	ImportEqualsDeclarationNode       = Node
-	ExportDeclarationNode             = Node
-	ImportTypeNodeNode                = Node
-	ImportClauseNode                  = Node
-	ImportSpecifierNode               = Node
-	JSDocTextNode                     = Node
-	JSDocLinkNode                     = Node
-	JSDocLinkPlainNode                = Node
-	JSDocLinkCodeNode                 = Node
-	TypeParameterDeclarationNode      = Node
-	SyntheticReferenceExpressionNode  = Node
-	JSDocTypeLiteralNode              = Node
-	JSDocParameterOrPropertyTagNode   = Node
-	EndOfFile                         = Node
-	DotToken                          = Node
-	DotDotDotToken                    = Node
-	QuestionToken                     = Node
-	ExclamationToken                  = Node
-	ColonToken                        = Node
-	EqualsToken                       = Node
-	AsteriskToken                     = Node
-	EqualsGreaterThanToken            = Node
-	PlusToken                         = Node
-	MinusToken                        = Node
-	QuestionDotToken                  = Node
-	AssertsKeyword                    = Node
-	AssertKeyword                     = Node
-	AwaitKeyword                      = Node
-	CaseKeyword                       = Node
-	AbstractKeyword                   = Node
-	AccessorKeyword                   = Node
-	AsyncKeyword                      = Node
-	ConstKeyword                      = Node
-	DeclareKeyword                    = Node
-	DefaultKeyword                    = Node
-	ExportKeyword                     = Node
-	InKeyword                         = Node
-	PrivateKeyword                    = Node
-	ProtectedKeyword                  = Node
-	PublicKeyword                     = Node
-	ReadonlyKeyword                   = Node
-	OutKeyword                        = Node
-	OverrideKeyword                   = Node
-	StaticKeyword                     = Node
-	BinaryOperatorToken               = Node
-	AssignmentOperatorToken           = Node
-	NullLiteral                       = Node
-	TrueLiteral                       = Node
-	FalseLiteral                      = Node
-	ThisExpression                    = Node
-	SuperExpression                   = Node
-	ImportExpression                  = Node
+	TokenNode                             = Node
+	IdentifierNode                        = Node
+	PrivateIdentifierNode                 = Node
+	QualifiedNameNode                     = Node
+	ComputedPropertyNameNode              = Node
+	DecoratorNode                         = Node
+	EmptyStatementNode                    = Node
+	IfStatementNode                       = Node
+	DoStatementNode                       = Node
+	WhileStatementNode                    = Node
+	ForStatementNode                      = Node
+	ForInOrOfStatementNode                = Node
+	BreakStatementNode                    = Node
+	ContinueStatementNode                 = Node
+	ReturnStatementNode                   = Node
+	WithStatementNode                     = Node
+	SwitchStatementNode                   = Node
+	CaseBlockNode                         = Node
+	CaseOrDefaultClauseNode               = Node
+	ThrowStatementNode                    = Node
+	TryStatementNode                      = Node
+	CatchClauseNode                       = Node
+	DebuggerStatementNode                 = Node
+	LabeledStatementNode                  = Node
+	ExpressionStatementNode               = Node
+	BlockNode                             = Node
+	VariableStatementNode                 = Node
+	VariableDeclarationNode               = Node
+	VariableDeclarationListNode           = Node
+	BindingPatternNode                    = Node
+	ParameterDeclarationNode              = Node
+	BindingElementNode                    = Node
+	MissingDeclarationNode                = Node
+	FunctionDeclarationNode               = Node
+	ClassDeclarationNode                  = Node
+	ClassExpressionNode                   = Node
+	HeritageClauseNode                    = Node
+	InterfaceDeclarationNode              = Node
+	TypeAliasDeclarationNode              = Node
+	EnumMemberNode                        = Node
+	EnumDeclarationNode                   = Node
+	ModuleBlockNode                       = Node
+	NotEmittedStatementNode               = Node
+	NotEmittedTypeElementNode             = Node
+	ImportDeclarationNode                 = Node
+	ExternalModuleReferenceNode           = Node
+	NamespaceImportNode                   = Node
+	NamedImportsNode                      = Node
+	ExportAssignmentNode                  = Node
+	NamespaceExportDeclarationNode        = Node
+	NamespaceExportNode                   = Node
+	NamedExportsNode                      = Node
+	ExportSpecifierNode                   = Node
+	CallSignatureDeclarationNode          = Node
+	ConstructSignatureDeclarationNode     = Node
+	ConstructorDeclarationNode            = Node
+	GetAccessorDeclarationNode            = Node
+	SetAccessorDeclarationNode            = Node
+	IndexSignatureDeclarationNode         = Node
+	MethodSignatureDeclarationNode        = Node
+	MethodDeclarationNode                 = Node
+	PropertySignatureDeclarationNode      = Node
+	PropertyDeclarationNode               = Node
+	SemicolonClassElementNode             = Node
+	ClassStaticBlockDeclarationNode       = Node
+	OmittedExpressionNode                 = Node
+	KeywordExpressionNode                 = Node
+	StringLiteralNode                     = Node
+	NumericLiteralNode                    = Node
+	BigIntLiteralNode                     = Node
+	RegularExpressionLiteralNode          = Node
+	NoSubstitutionTemplateLiteralNode     = Node
+	BinaryExpressionNode                  = Node
+	PrefixUnaryExpressionNode             = Node
+	PostfixUnaryExpressionNode            = Node
+	YieldExpressionNode                   = Node
+	ArrowFunctionNode                     = Node
+	FunctionExpressionNode                = Node
+	AsExpressionNode                      = Node
+	SatisfiesExpressionNode               = Node
+	ConditionalExpressionNode             = Node
+	PropertyAccessExpressionNode          = Node
+	ElementAccessExpressionNode           = Node
+	CallExpressionNode                    = Node
+	NewExpressionNode                     = Node
+	MetaPropertyNode                      = Node
+	NonNullExpressionNode                 = Node
+	SpreadElementNode                     = Node
+	TemplateExpressionNode                = Node
+	TemplateSpanNode                      = Node
+	TaggedTemplateExpressionNode          = Node
+	ParenthesizedExpressionNode           = Node
+	ArrayLiteralExpressionNode            = Node
+	ObjectLiteralExpressionNode           = Node
+	SpreadAssignmentNode                  = Node
+	PropertyAssignmentNode                = Node
+	ShorthandPropertyAssignmentNode       = Node
+	ShorthandPropertyAccessAssignmentNode = Node
+	DeleteExpressionNode                  = Node
+	TypeOfExpressionNode                  = Node
+	VoidExpressionNode                    = Node
+	AwaitExpressionNode                   = Node
+	TypeAssertionNode                     = Node
+	KeywordTypeNodeNode                   = Node
+	UnionTypeNodeNode                     = Node
+	IntersectionTypeNodeNode              = Node
+	ConditionalTypeNodeNode               = Node
+	TypeOperatorNodeNode                  = Node
+	InferTypeNodeNode                     = Node
+	ArrayTypeNodeNode                     = Node
+	IndexedAccessTypeNodeNode             = Node
+	TypeReferenceNodeNode                 = Node
+	ExpressionWithTypeArgumentsNode       = Node
+	LiteralTypeNodeNode                   = Node
+	ThisTypeNodeNode                      = Node
+	TypePredicateNodeNode                 = Node
+	ImportAttributeNode                   = Node
+	ImportAttributesNode                  = Node
+	TypeQueryNodeNode                     = Node
+	MappedTypeNodeNode                    = Node
+	TypeLiteralNodeNode                   = Node
+	TupleTypeNodeNode                     = Node
+	NamedTupleMemberNode                  = Node
+	OptionalTypeNodeNode                  = Node
+	RestTypeNodeNode                      = Node
+	ParenthesizedTypeNodeNode             = Node
+	FunctionTypeNodeNode                  = Node
+	ConstructorTypeNodeNode               = Node
+	TemplateHeadNode                      = Node
+	TemplateMiddleNode                    = Node
+	TemplateTailNode                      = Node
+	TemplateLiteralTypeNodeNode           = Node
+	TemplateLiteralTypeSpanNode           = Node
+	SyntheticExpressionNode               = Node
+	PartiallyEmittedExpressionNode        = Node
+	JsxElementNode                        = Node
+	JsxAttributesNode                     = Node
+	JsxNamespacedNameNode                 = Node
+	JsxOpeningElementNode                 = Node
+	JsxSelfClosingElementNode             = Node
+	JsxFragmentNode                       = Node
+	JsxOpeningFragmentNode                = Node
+	JsxClosingFragmentNode                = Node
+	JsxAttributeNode                      = Node
+	JsxSpreadAttributeNode                = Node
+	JsxClosingElementNode                 = Node
+	JsxExpressionNode                     = Node
+	JsxTextNode                           = Node
+	SyntaxListNode                        = Node
+	JSDocNode                             = Node
+	JSDocTypeExpressionNode               = Node
+	JSDocNonNullableTypeNode              = Node
+	JSDocNullableTypeNode                 = Node
+	JSDocAllTypeNode                      = Node
+	JSDocVariadicTypeNode                 = Node
+	JSDocOptionalTypeNode                 = Node
+	JSDocTypeTagNode                      = Node
+	JSDocUnknownTagNode                   = Node
+	JSDocTemplateTagNode                  = Node
+	JSDocReturnTagNode                    = Node
+	JSDocPublicTagNode                    = Node
+	JSDocPrivateTagNode                   = Node
+	JSDocProtectedTagNode                 = Node
+	JSDocReadonlyTagNode                  = Node
+	JSDocOverrideTagNode                  = Node
+	JSDocDeprecatedTagNode                = Node
+	JSDocSeeTagNode                       = Node
+	JSDocImplementsTagNode                = Node
+	JSDocAugmentsTagNode                  = Node
+	JSDocSatisfiesTagNode                 = Node
+	JSDocThrowsTagNode                    = Node
+	JSDocThisTagNode                      = Node
+	JSDocImportTagNode                    = Node
+	JSDocCallbackTagNode                  = Node
+	JSDocOverloadTagNode                  = Node
+	JSDocTypedefTagNode                   = Node
+	JSDocSignatureNode                    = Node
+	JSDocNameReferenceNode                = Node
+	SourceFileNode                        = Node
+	ModuleDeclarationNode                 = Node
+	ImportEqualsDeclarationNode           = Node
+	ExportDeclarationNode                 = Node
+	ImportTypeNodeNode                    = Node
+	ImportClauseNode                      = Node
+	ImportSpecifierNode                   = Node
+	JSDocTextNode                         = Node
+	JSDocLinkNode                         = Node
+	JSDocLinkPlainNode                    = Node
+	JSDocLinkCodeNode                     = Node
+	TypeParameterDeclarationNode          = Node
+	SyntheticReferenceExpressionNode      = Node
+	JSDocTypeLiteralNode                  = Node
+	JSDocParameterOrPropertyTagNode       = Node
+	EndOfFile                             = Node
+	DotToken                              = Node
+	DotDotDotToken                        = Node
+	QuestionToken                         = Node
+	ExclamationToken                      = Node
+	ColonToken                            = Node
+	EqualsToken                           = Node
+	AsteriskToken                         = Node
+	EqualsGreaterThanToken                = Node
+	PlusToken                             = Node
+	MinusToken                            = Node
+	QuestionDotToken                      = Node
+	AssertsKeyword                        = Node
+	AssertKeyword                         = Node
+	AwaitKeyword                          = Node
+	CaseKeyword                           = Node
+	AbstractKeyword                       = Node
+	AccessorKeyword                       = Node
+	AsyncKeyword                          = Node
+	ConstKeyword                          = Node
+	DeclareKeyword                        = Node
+	DefaultKeyword                        = Node
+	ExportKeyword                         = Node
+	InKeyword                             = Node
+	PrivateKeyword                        = Node
+	ProtectedKeyword                      = Node
+	PublicKeyword                         = Node
+	ReadonlyKeyword                       = Node
+	OutKeyword                            = Node
+	OverrideKeyword                       = Node
+	StaticKeyword                         = Node
+	BinaryOperatorToken                   = Node
+	AssignmentOperatorToken               = Node
+	NullLiteral                           = Node
+	TrueLiteral                           = Node
+	FalseLiteral                          = Node
+	ThisExpression                        = Node
+	SuperExpression                       = Node
+	ImportExpression                      = Node
 )
 
 type (
@@ -4895,6 +4896,47 @@ func IsShorthandPropertyAssignment(node *Node) bool {
 }
 
 // ──────────────────────────────────────────────────────────────────────
+// ShorthandPropertyAccessAssignment
+// ──────────────────────────────────────────────────────────────────────
+
+type ShorthandPropertyAccessAssignment struct {
+	ObjectLiteralElementBase
+	NodeBase
+	DeclarationBase
+	CompositeBase
+	Expression *Expression
+}
+
+func (f *NodeFactory) NewShorthandPropertyAccessAssignment(expression *Expression) *Node {
+	data := &ShorthandPropertyAccessAssignment{}
+	data.Expression = expression
+	return f.newNode(KindShorthandPropertyAccessAssignment, data)
+}
+
+func (f *NodeFactory) UpdateShorthandPropertyAccessAssignment(node *ShorthandPropertyAccessAssignment, expression *Expression) *Node {
+	if expression != node.Expression {
+		return updateNode(f.NewShorthandPropertyAccessAssignment(expression), node.AsNode(), f.hooks)
+	}
+	return node.AsNode()
+}
+
+func (node *ShorthandPropertyAccessAssignment) ForEachChild(v Visitor) bool {
+	return visit(v, node.Expression)
+}
+
+func (node *ShorthandPropertyAccessAssignment) VisitEachChild(v *NodeVisitor) *Node {
+	return v.Factory.UpdateShorthandPropertyAccessAssignment(node, v.visitNode(node.Expression))
+}
+
+func (node *ShorthandPropertyAccessAssignment) Clone(f NodeFactoryCoercible) *Node {
+	return cloneNode(f.AsNodeFactory().NewShorthandPropertyAccessAssignment(node.Expression), node.AsNode(), f.AsNodeFactory().hooks)
+}
+
+func IsShorthandPropertyAccessAssignment(node *Node) bool {
+	return node.Kind == KindShorthandPropertyAccessAssignment
+}
+
+// ──────────────────────────────────────────────────────────────────────
 // DeleteExpression
 // ──────────────────────────────────────────────────────────────────────
 
@@ -8854,6 +8896,8 @@ func (n *Node) ForEachChild(v Visitor) bool {
 		return n.data.(*PropertyAssignment).ForEachChild(v)
 	case KindShorthandPropertyAssignment:
 		return n.data.(*ShorthandPropertyAssignment).ForEachChild(v)
+	case KindShorthandPropertyAccessAssignment:
+		return n.data.(*ShorthandPropertyAccessAssignment).ForEachChild(v)
 	case KindDeleteExpression:
 		return n.data.(*DeleteExpression).ForEachChild(v)
 	case KindTypeOfExpression:
@@ -9419,6 +9463,10 @@ func (n *Node) AsPropertyAssignment() *PropertyAssignment {
 
 func (n *Node) AsShorthandPropertyAssignment() *ShorthandPropertyAssignment {
 	return n.data.(*ShorthandPropertyAssignment)
+}
+
+func (n *Node) AsShorthandPropertyAccessAssignment() *ShorthandPropertyAccessAssignment {
+	return n.data.(*ShorthandPropertyAccessAssignment)
 }
 
 func (n *Node) AsDeleteExpression() *DeleteExpression {

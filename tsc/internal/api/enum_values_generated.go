@@ -631,6 +631,7 @@ func main() {
 			"ImportAttribute":                              toInt32(ast.KindImportAttribute),
 			"PropertyAssignment":                           toInt32(ast.KindPropertyAssignment),
 			"ShorthandPropertyAssignment":                  toInt32(ast.KindShorthandPropertyAssignment),
+			"ShorthandPropertyAccessAssignment":            toInt32(ast.KindShorthandPropertyAccessAssignment),
 			"SpreadAssignment":                             toInt32(ast.KindSpreadAssignment),
 			"EnumMember":                                   toInt32(ast.KindEnumMember),
 			"SourceFile":                                   toInt32(ast.KindSourceFile),

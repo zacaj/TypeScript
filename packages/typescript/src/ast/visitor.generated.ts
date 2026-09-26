@@ -142,6 +142,7 @@ import type {
     ReturnStatement,
     SatisfiesExpression,
     SetAccessorDeclaration,
+    ShorthandPropertyAccessAssignment,
     ShorthandPropertyAssignment,
     SourceFile,
     SpreadAssignment,
@@ -314,6 +315,7 @@ import {
     updateReturnStatement,
     updateSatisfiesExpression,
     updateSetAccessorDeclaration,
+    updateShorthandPropertyAccessAssignment,
     updateShorthandPropertyAssignment,
     updateSourceFile,
     updateSpreadAssignment,
@@ -972,6 +974,10 @@ const visitEachChildTable: Record<number, VisitEachChildFunction> = {
         const _equalsToken = visitNode(node.equalsToken, visitor, isEqualsToken);
         const _objectAssignmentInitializer = visitNode(node.objectAssignmentInitializer, visitor, isExpression);
         return updateShorthandPropertyAssignment(node, _modifiers, _name, _postfixToken, _type, _equalsToken, _objectAssignmentInitializer);
+    },
+    [SyntaxKind.ShorthandPropertyAccessAssignment]: (node: ShorthandPropertyAccessAssignment, visitor: Visitor): ShorthandPropertyAccessAssignment => {
+        const _expression = visitNode(node.expression, visitor, isExpression);
+        return updateShorthandPropertyAccessAssignment(node, _expression);
     },
     [SyntaxKind.DeleteExpression]: (node: DeleteExpression, visitor: Visitor): DeleteExpression => {
         const _expression = visitNode(node.expression, visitor, isExpression);

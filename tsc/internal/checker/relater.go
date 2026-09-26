@@ -512,6 +512,8 @@ func (c *Checker) elaborateObjectLiteral(node *ast.Node, source *Type, target *T
 		case ast.KindPropertyAssignment:
 			message := core.IfElse(ast.IsComputedNonLiteralName(prop.Name()), diagnostics.Type_of_computed_property_s_value_is_0_which_is_not_assignable_to_type_1, nil)
 			reportedError = c.elaborateElement(source, target, relation, prop.Name(), prop.Initializer(), nameType, message, nil, diagnosticOutput) || reportedError
+		case ast.KindShorthandPropertyAccessAssignment:
+			reportedError = c.elaborateElement(source, target, relation, prop.Name(), prop.Expression(), nameType, nil, nil, diagnosticOutput) || reportedError
 		}
 	}
 	return reportedError

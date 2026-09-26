@@ -1,0 +1,22 @@
+// === findAllReferences ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { [|c|]: string } };
+// declare function f(): { x: number };
+// const o = { a.b./*FIND ALL REFS*/[|c|], (f()).x };
+// o.c;
+// o.x;
+// class C {
+// --- (line: 7) skipped ---
+
+
+
+// === findAllReferences ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { c: string } };
+// declare function f(): { x: number };
+// const o = { a.b.c, (f()).x };
+// o./*FIND ALL REFS*/[|c|];
+// o.x;
+// class C {
+//     value = 1;
+// --- (line: 8) skipped ---

@@ -1,0 +1,16 @@
+//// [tests/cases/compiler/shorthandPropertyAccessJs.ts] ////
+
+=== a.js ===
+const a = { b: { c: 1 } };
+>a : Symbol(a, Decl(a.js, 0, 5))
+>b : Symbol(b, Decl(a.js, 0, 11))
+>c : Symbol(c, Decl(a.js, 0, 16))
+
+const o = { a.b.c };
+>o : Symbol(o, Decl(a.js, 1, 5))
+>a.b.c : Symbol(c, Decl(a.js, 0, 16))
+>a.b : Symbol(b, Decl(a.js, 0, 11))
+>a : Symbol(a, Decl(a.js, 0, 5))
+>b : Symbol(b, Decl(a.js, 0, 11))
+>c : Symbol(c, Decl(a.js, 0, 16))
+

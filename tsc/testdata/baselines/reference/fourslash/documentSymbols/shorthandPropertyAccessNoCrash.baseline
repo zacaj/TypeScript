@@ -1,0 +1,21 @@
+// === Document Symbols ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const <|[|{| name: a, kind: Variable |}a|]: { b: { c: string } }|>;
+// <|declare function [|{| name: f, kind: Function |}f|](): { x: number };|>
+// const <|[|{| name: o, kind: Variable |}o|] = { a.b.c, (f()).x }|>;
+// o.c;
+// o.x;
+// <|class [|{| name: C, kind: Class |}C|] {
+//     <|[|{| name: value, kind: Property |}value|] = 1;|>
+//     <|[|{| name: get, kind: Method |}get|]() {
+//         return { this.value };
+//     }|>
+// }|>
+
+// === Details ===
+(Variable) a
+(Function) f
+(Variable) o
+(Class) C
+  (Property) value
+  (Method) get

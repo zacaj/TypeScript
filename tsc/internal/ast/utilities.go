@@ -588,6 +588,7 @@ func IsObjectLiteralElement(node *Node) bool {
 	switch node.Kind {
 	case KindPropertyAssignment,
 		KindShorthandPropertyAssignment,
+		KindShorthandPropertyAccessAssignment,
 		KindSpreadAssignment,
 		KindMethodDeclaration,
 		KindGetAccessor,
@@ -1062,7 +1063,7 @@ func CanHaveSymbol(node *Node) bool {
 		KindMethodSignature, KindModuleDeclaration, KindNamedTupleMember, KindNamespaceExport, KindNamespaceExportDeclaration,
 		KindNamespaceImport, KindNewExpression, KindNoSubstitutionTemplateLiteral, KindNumericLiteral, KindObjectLiteralExpression,
 		KindParameter, KindPropertyAccessExpression, KindPropertyAssignment, KindPropertyDeclaration, KindPropertySignature,
-		KindSetAccessor, KindShorthandPropertyAssignment, KindSourceFile, KindSpreadAssignment, KindStringLiteral,
+		KindSetAccessor, KindShorthandPropertyAccessAssignment, KindShorthandPropertyAssignment, KindSourceFile, KindSpreadAssignment, KindStringLiteral,
 		KindTypeAliasDeclaration, KindTypeLiteral, KindTypeParameter, KindVariableDeclaration:
 		return true
 	}
@@ -2044,7 +2045,7 @@ func IsInExpressionContext(node *Node) bool {
 	case KindForInStatement, KindForOfStatement:
 		s := parent.AsForInOrOfStatement()
 		return s.Initializer == node && s.Initializer.Kind != KindVariableDeclarationList || s.Expression == node
-	case KindDecorator, KindJsxExpression, KindJsxSpreadAttribute, KindSpreadAssignment:
+	case KindDecorator, KindJsxExpression, KindJsxSpreadAttribute, KindSpreadAssignment, KindShorthandPropertyAccessAssignment:
 		return true
 	case KindExpressionWithTypeArguments:
 		return parent.Expression() == node && !IsPartOfTypeNode(parent)
@@ -2257,6 +2258,7 @@ func GetMeaningFromDeclaration(node *Node) SemanticMeaning {
 		KindPropertySignature,
 		KindPropertyAssignment,
 		KindShorthandPropertyAssignment,
+		KindShorthandPropertyAccessAssignment,
 		KindMethodDeclaration,
 		KindMethodSignature,
 		KindConstructor,
@@ -4628,4 +4630,21 @@ func IsProtoSetter(node *Node) bool {
 func IsStringLiteralLikeType(node *Node) bool {
 	return node.Kind == KindLiteralType &&
 		IsStringLiteralLike(node.AsLiteralTypeNode().Literal)
+}
+
+// GetShorthandPropertyAccessName returns the property name that a shorthand property access
+// expression such as `{ a?.b!.c[2].d }` or `{ a.b! }` implies, or nil if the expression does
+// not end in a property access with an identifier name.
+func GetShorthandPropertyAccessName(expr *Node) *Node {
+	for expr != nil && expr.Kind == KindNonNullExpression {
+		expr = expr.Expression()
+	}
+	if expr == nil || expr.Kind != KindPropertyAccessExpression {
+		return nil
+	}
+	name := expr.Name()
+	if name.Kind != KindIdentifier {
+		return nil
+	}
+	return name
 }

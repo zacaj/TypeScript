@@ -1,0 +1,239 @@
+// === Smart Selection ===
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { /**/a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+            a                ↲
+            a.b              ↲
+            a.b.c            ↲
+            a.b.c, (f()).x   ↲
+          { a.b.c, (f()).x } ↲
+const o = { a.b.c, (f()).x };↲
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+================================================================================
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a./**/b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+              b              ↲
+            a.b              ↲
+            a.b.c            ↲
+            a.b.c, (f()).x   ↲
+          { a.b.c, (f()).x } ↲
+const o = { a.b.c, (f()).x };↲
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+================================================================================
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b./**/c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+                c            ↲
+            a.b.c            ↲
+            a.b.c, (f()).x   ↲
+          { a.b.c, (f()).x } ↲
+const o = { a.b.c, (f()).x };↲
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+================================================================================
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f())./**/x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+                         x   ↲
+                   (f()).x   ↲
+            a.b.c, (f()).x   ↲
+          { a.b.c, (f()).x } ↲
+const o = { a.b.c, (f()).x };↲
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+================================================================================
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o./**/c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+  c ↲
+o.c ↲
+o.c;↲
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+================================================================================
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o./**/x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+  x ↲
+o.x ↲
+o.x;↲
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+================================================================================
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this./**/value };
+    }
+}
+
+                      value   ↲
+                 this.value   ↲
+               { this.value } ↲
+        return { this.value };↲
+
+          {
+        return { this.value };
+    }↲
+
+    get() {
+        return { this.value };
+    }↲
+
+    value = 1;
+    get() {
+        return { this.value };
+    }↲
+
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}
+
+declare const a: { b: { c: string } };
+declare function f(): { x: number };
+const o = { a.b.c, (f()).x };
+o.c;
+o.x;
+class C {
+    value = 1;
+    get() {
+        return { this.value };
+    }
+}

@@ -1,0 +1,259 @@
+// === QuickInfo ===
+=== /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { c: string } };
+// declare function f(): { x: number };
+// const o = { a.b.c, (f()).x };
+//             ^
+// | ----------------------------------------------------------------------
+// | ```typescript
+// | const a: {
+// |     b: {
+// |         c: string;
+// |     };
+// | }
+// | ```
+// | 
+// | ----------------------------------------------------------------------
+//               ^
+// | ----------------------------------------------------------------------
+// | ```typescript
+// | (property) b: {
+// |     c: string;
+// | }
+// | ```
+// | 
+// | ----------------------------------------------------------------------
+//                 ^
+// | ----------------------------------------------------------------------
+// | ```typescript
+// | (property) c: string
+// | ```
+// | 
+// | ----------------------------------------------------------------------
+//                          ^
+// | ----------------------------------------------------------------------
+// | ```typescript
+// | (property) x: number
+// | ```
+// | 
+// | ----------------------------------------------------------------------
+// o.c;
+//   ^
+// | ----------------------------------------------------------------------
+// | ```typescript
+// | (property) c: string
+// | ```
+// | 
+// | ----------------------------------------------------------------------
+// o.x;
+//   ^
+// | ----------------------------------------------------------------------
+// | ```typescript
+// | (property) x: number
+// | ```
+// | 
+// | ----------------------------------------------------------------------
+// class C {
+//     value = 1;
+//     get() {
+//         return { this.value };
+//                       ^^^^^
+// | ----------------------------------------------------------------------
+// | ```typescript
+// | (property) C.value: number
+// | ```
+// | 
+// | ----------------------------------------------------------------------
+//     }
+// }
+[
+  {
+    "marker": {
+      "Position": 88,
+      "LSPosition": {
+        "line": 2,
+        "character": 12
+      },
+      "Name": "1",
+      "Data": {}
+    },
+    "item": {
+      "contents": {
+        "kind": "markdown",
+        "value": "```typescript\nconst a: {\n    b: {\n        c: string;\n    };\n}\n```\n"
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 12
+        },
+        "end": {
+          "line": 2,
+          "character": 13
+        }
+      }
+    }
+  },
+  {
+    "marker": {
+      "Position": 90,
+      "LSPosition": {
+        "line": 2,
+        "character": 14
+      },
+      "Name": "2",
+      "Data": {}
+    },
+    "item": {
+      "contents": {
+        "kind": "markdown",
+        "value": "```typescript\n(property) b: {\n    c: string;\n}\n```\n"
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 14
+        },
+        "end": {
+          "line": 2,
+          "character": 15
+        }
+      }
+    }
+  },
+  {
+    "marker": {
+      "Position": 92,
+      "LSPosition": {
+        "line": 2,
+        "character": 16
+      },
+      "Name": "3",
+      "Data": {}
+    },
+    "item": {
+      "contents": {
+        "kind": "markdown",
+        "value": "```typescript\n(property) c: string\n```\n"
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 16
+        },
+        "end": {
+          "line": 2,
+          "character": 17
+        }
+      }
+    }
+  },
+  {
+    "marker": {
+      "Position": 101,
+      "LSPosition": {
+        "line": 2,
+        "character": 25
+      },
+      "Name": "4",
+      "Data": {}
+    },
+    "item": {
+      "contents": {
+        "kind": "markdown",
+        "value": "```typescript\n(property) x: number\n```\n"
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 25
+        },
+        "end": {
+          "line": 2,
+          "character": 26
+        }
+      }
+    }
+  },
+  {
+    "marker": {
+      "Position": 108,
+      "LSPosition": {
+        "line": 3,
+        "character": 2
+      },
+      "Name": "5",
+      "Data": {}
+    },
+    "item": {
+      "contents": {
+        "kind": "markdown",
+        "value": "```typescript\n(property) c: string\n```\n"
+      },
+      "range": {
+        "start": {
+          "line": 3,
+          "character": 2
+        },
+        "end": {
+          "line": 3,
+          "character": 3
+        }
+      }
+    }
+  },
+  {
+    "marker": {
+      "Position": 113,
+      "LSPosition": {
+        "line": 4,
+        "character": 2
+      },
+      "Name": "6",
+      "Data": {}
+    },
+    "item": {
+      "contents": {
+        "kind": "markdown",
+        "value": "```typescript\n(property) x: number\n```\n"
+      },
+      "range": {
+        "start": {
+          "line": 4,
+          "character": 2
+        },
+        "end": {
+          "line": 4,
+          "character": 3
+        }
+      }
+    }
+  },
+  {
+    "marker": {
+      "Position": 175,
+      "LSPosition": {
+        "line": 8,
+        "character": 22
+      },
+      "Name": "7",
+      "Data": {}
+    },
+    "item": {
+      "contents": {
+        "kind": "markdown",
+        "value": "```typescript\n(property) C.value: number\n```\n"
+      },
+      "range": {
+        "start": {
+          "line": 8,
+          "character": 22
+        },
+        "end": {
+          "line": 8,
+          "character": 27
+        }
+      }
+    }
+  }
+]

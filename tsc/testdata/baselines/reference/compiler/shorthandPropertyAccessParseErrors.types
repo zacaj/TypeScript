@@ -1,0 +1,33 @@
+//// [tests/cases/compiler/shorthandPropertyAccessParseErrors.ts] ////
+
+=== shorthandPropertyAccessParseErrors.ts ===
+declare const a: { b: { c: string, fn(): void }, arr: { name: number }[] };
+>a : { b: { c: string; fn(): void; }; arr: { name: number; }[]; }
+>b : { c: string; fn(): void; }
+>c : string
+>fn : () => void
+>arr : { name: number; }[]
+>name : number
+
+// Must end with a property name
+const e1 = { a.arr[0] };
+>e1 : { "": { name: number; }; }
+>{ a.arr[0] } : { "": { name: number; }; }
+> : { name: number; }
+>a.arr[0] : { name: number; }
+>a.arr : { name: number; }[]
+>a : { b: { c: string; fn(): void; }; arr: { name: number; }[]; }
+>arr : { name: number; }[]
+>0 : 0
+
+const e2 = { a.b.fn() };
+>e2 : { "": void; }
+>{ a.b.fn() } : { "": void; }
+> : void
+>a.b.fn() : void
+>a.b.fn : () => void
+>a.b : { c: string; fn(): void; }
+>a : { b: { c: string; fn(): void; }; arr: { name: number; }[]; }
+>b : { c: string; fn(): void; }
+>fn : () => void
+

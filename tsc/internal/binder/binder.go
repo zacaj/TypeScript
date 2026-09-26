@@ -656,7 +656,7 @@ func (b *Binder) bind(node *ast.Node) bool {
 		b.bindVariableDeclarationOrBindingElement(node)
 	case ast.KindPropertyDeclaration, ast.KindPropertySignature:
 		b.bindPropertyWorker(node)
-	case ast.KindPropertyAssignment, ast.KindShorthandPropertyAssignment:
+	case ast.KindPropertyAssignment, ast.KindShorthandPropertyAssignment, ast.KindShorthandPropertyAccessAssignment:
 		b.bindPropertyOrMethodOrAccessor(node, ast.SymbolFlagsProperty, ast.SymbolFlagsPropertyExcludes)
 	case ast.KindEnumMember:
 		b.bindPropertyOrMethodOrAccessor(node, ast.SymbolFlagsEnumMember, ast.SymbolFlagsEnumMemberExcludes)

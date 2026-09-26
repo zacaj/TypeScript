@@ -946,6 +946,10 @@ var X_0_is_not_a_valid_key_for_an_import_attributes_type = &Message{code: 1557, 
 
 var An_import_attributes_property_cannot_have_a_readonly_modifier = &Message{code: 1558, category: CategoryError, key: "An_import_attributes_property_cannot_have_a_readonly_modifier_1558", text: "An import attributes property cannot have a 'readonly' modifier."}
 
+var A_shorthand_property_expression_must_end_with_a_property_name = &Message{code: 1559, category: CategoryError, key: "A_shorthand_property_expression_must_end_with_a_property_name_1559", text: "A shorthand property expression must end with a property name."}
+
+var A_shorthand_property_expression_cannot_be_used_in_a_destructuring_assignment_target = &Message{code: 1560, category: CategoryError, key: "A_shorthand_property_expression_cannot_be_used_in_a_destructuring_assignment_target_1560", text: "A shorthand property expression cannot be used in a destructuring assignment target."}
+
 var The_types_of_0_are_incompatible_between_these_types = &Message{code: 2200, category: CategoryError, key: "The_types_of_0_are_incompatible_between_these_types_2200", text: "The types of '{0}' are incompatible between these types."}
 
 var The_types_returned_by_0_are_incompatible_between_these_types = &Message{code: 2201, category: CategoryError, key: "The_types_returned_by_0_are_incompatible_between_these_types_2201", text: "The types returned by '{0}' are incompatible between these types."}
@@ -3576,6 +3580,8 @@ var A_JSDoc_template_tag_may_not_follow_a_typedef_callback_or_overload_tag = &Me
 
 var File_rename_is_not_supported_by_the_editor = &Message{code: 8040, category: CategoryError, key: "File_rename_is_not_supported_by_the_editor_8040", text: "File rename is not supported by the editor"}
 
+var Shorthand_property_expressions_can_only_be_used_in_TypeScript_files = &Message{code: 8041, category: CategoryError, key: "Shorthand_property_expressions_can_only_be_used_in_TypeScript_files_8041", text: "Shorthand property expressions can only be used in TypeScript files."}
+
 var Declaration_emit_for_this_file_requires_using_private_name_0_An_explicit_type_annotation_may_unblock_declaration_emit = &Message{code: 9005, category: CategoryError, key: "Declaration_emit_for_this_file_requires_using_private_name_0_An_explicit_type_annotation_may_unblock_9005", text: "Declaration emit for this file requires using private name '{0}'. An explicit type annotation may unblock declaration emit."}
 
 var Declaration_emit_for_this_file_requires_using_private_name_0_from_module_1_An_explicit_type_annotation_may_unblock_declaration_emit = &Message{code: 9006, category: CategoryError, key: "Declaration_emit_for_this_file_requires_using_private_name_0_from_module_1_An_explicit_type_annotati_9006", text: "Declaration emit for this file requires using private name '{0}' from module '{1}'. An explicit type annotation may unblock declaration emit."}
@@ -4901,6 +4907,8 @@ var allMessages = [...]**Message{
 	&An_import_attributes_property_cannot_be_optional,
 	&X_0_is_not_a_valid_key_for_an_import_attributes_type,
 	&An_import_attributes_property_cannot_have_a_readonly_modifier,
+	&A_shorthand_property_expression_must_end_with_a_property_name,
+	&A_shorthand_property_expression_cannot_be_used_in_a_destructuring_assignment_target,
 	&The_types_of_0_are_incompatible_between_these_types,
 	&The_types_returned_by_0_are_incompatible_between_these_types,
 	&Call_signature_return_types_0_and_1_are_incompatible,
@@ -6216,6 +6224,7 @@ var allMessages = [...]**Message{
 	&Decorators_may_not_appear_after_export_or_export_default_if_they_also_appear_before_export,
 	&A_JSDoc_template_tag_may_not_follow_a_typedef_callback_or_overload_tag,
 	&File_rename_is_not_supported_by_the_editor,
+	&Shorthand_property_expressions_can_only_be_used_in_TypeScript_files,
 	&Declaration_emit_for_this_file_requires_using_private_name_0_An_explicit_type_annotation_may_unblock_declaration_emit,
 	&Declaration_emit_for_this_file_requires_using_private_name_0_from_module_1_An_explicit_type_annotation_may_unblock_declaration_emit,
 	&Function_must_have_an_explicit_return_type_annotation_with_isolatedDeclarations,

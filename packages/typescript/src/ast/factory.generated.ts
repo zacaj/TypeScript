@@ -211,6 +211,7 @@ import type {
     SatisfiesExpression,
     SemicolonClassElement,
     SetAccessorDeclaration,
+    ShorthandPropertyAccessAssignment,
     ShorthandPropertyAssignment,
     SourceFile,
     SpreadAssignment,
@@ -956,6 +957,8 @@ function cloneNodeData(node: Node): any {
             return { modifiers: n.modifiers, name: n.name, postfixToken: n.postfixToken, type: n.type, initializer: n.initializer };
         case SyntaxKind.ShorthandPropertyAssignment:
             return { modifiers: n.modifiers, name: n.name, postfixToken: n.postfixToken, type: n.type, equalsToken: n.equalsToken, objectAssignmentInitializer: n.objectAssignmentInitializer };
+        case SyntaxKind.ShorthandPropertyAccessAssignment:
+            return { expression: n.expression };
         case SyntaxKind.DeleteExpression:
             return { expression: n.expression };
         case SyntaxKind.TypeOfExpression:
@@ -1442,6 +1445,7 @@ const forEachChildTable: Record<number, ForEachChildFunction> = {
         visitNode(cbNode, data.type) ||
         visitNode(cbNode, data.equalsToken) ||
         visitNode(cbNode, data.objectAssignmentInitializer),
+    [SyntaxKind.ShorthandPropertyAccessAssignment]: (data, cbNode, cbNodes) => visitNode(cbNode, data.expression),
     [SyntaxKind.DeleteExpression]: (data, cbNode, cbNodes) => visitNode(cbNode, data.expression),
     [SyntaxKind.TypeOfExpression]: (data, cbNode, cbNodes) => visitNode(cbNode, data.expression),
     [SyntaxKind.VoidExpression]: (data, cbNode, cbNodes) => visitNode(cbNode, data.expression),
@@ -2883,6 +2887,12 @@ const yieldEachChildTable: Record<number, YieldEachChildFunction> = {
         }
         if (data.objectAssignmentInitializer) {
             const res = yield data.objectAssignmentInitializer;
+            if (res) return res;
+        }
+    },
+    [SyntaxKind.ShorthandPropertyAccessAssignment]: function* (data) {
+        if (data.expression) {
+            const res = yield data.expression;
             if (res) return res;
         }
     },
@@ -4653,6 +4663,12 @@ export function createShorthandPropertyAssignment(modifiers: readonly ModifierLi
     }) as unknown as ShorthandPropertyAssignment;
 }
 
+export function createShorthandPropertyAccessAssignment(expression: Expression): ShorthandPropertyAccessAssignment {
+    return new NodeObject(SyntaxKind.ShorthandPropertyAccessAssignment, {
+        expression,
+    }) as unknown as ShorthandPropertyAccessAssignment;
+}
+
 export function createDeleteExpression(expression: Expression): DeleteExpression {
     return new NodeObject(SyntaxKind.DeleteExpression, {
         expression,
@@ -5699,6 +5715,10 @@ export function updatePropertyAssignment(node: PropertyAssignment, modifiers: re
 
 export function updateShorthandPropertyAssignment(node: ShorthandPropertyAssignment, modifiers: readonly ModifierLike[] | undefined, name: PropertyName, postfixToken: QuestionToken | ExclamationToken | undefined, type: TypeNode, equalsToken?: EqualsToken, objectAssignmentInitializer?: Expression): ShorthandPropertyAssignment {
     return node.modifiers !== modifiers || node.name !== name || node.postfixToken !== postfixToken || node.type !== type || node.equalsToken !== equalsToken || node.objectAssignmentInitializer !== objectAssignmentInitializer ? createShorthandPropertyAssignment(modifiers, name, postfixToken, type, equalsToken, objectAssignmentInitializer) : node;
+}
+
+export function updateShorthandPropertyAccessAssignment(node: ShorthandPropertyAccessAssignment, expression: Expression): ShorthandPropertyAccessAssignment {
+    return node.expression !== expression ? createShorthandPropertyAccessAssignment(expression) : node;
 }
 
 export function updateDeleteExpression(node: DeleteExpression, expression: Expression): DeleteExpression {

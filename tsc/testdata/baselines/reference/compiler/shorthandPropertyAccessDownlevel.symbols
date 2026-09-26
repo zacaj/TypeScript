@@ -1,0 +1,25 @@
+//// [tests/cases/compiler/shorthandPropertyAccessDownlevel.ts] ////
+
+=== shorthandPropertyAccessDownlevel.ts ===
+declare const maybe: { inner?: { value: string, other: number } } | undefined;
+>maybe : Symbol(maybe, Decl(shorthandPropertyAccessDownlevel.ts, 0, 13))
+>inner : Symbol(inner, Decl(shorthandPropertyAccessDownlevel.ts, 0, 22))
+>value : Symbol(value, Decl(shorthandPropertyAccessDownlevel.ts, 0, 32))
+>other : Symbol(other, Decl(shorthandPropertyAccessDownlevel.ts, 0, 47))
+
+export const value = 1;
+>value : Symbol(value, Decl(shorthandPropertyAccessDownlevel.ts, 1, 12))
+
+export const o = { maybe?.inner?.value, maybe!.inner!.other! };
+>o : Symbol(o, Decl(shorthandPropertyAccessDownlevel.ts, 2, 12))
+>maybe?.inner?.value : Symbol(value, Decl(shorthandPropertyAccessDownlevel.ts, 0, 32))
+>maybe?.inner : Symbol(inner, Decl(shorthandPropertyAccessDownlevel.ts, 0, 22))
+>maybe : Symbol(maybe, Decl(shorthandPropertyAccessDownlevel.ts, 0, 13))
+>inner : Symbol(inner, Decl(shorthandPropertyAccessDownlevel.ts, 0, 22))
+>value : Symbol(value, Decl(shorthandPropertyAccessDownlevel.ts, 0, 32))
+>maybe!.inner!.other : Symbol(other, Decl(shorthandPropertyAccessDownlevel.ts, 0, 47))
+>maybe!.inner : Symbol(inner, Decl(shorthandPropertyAccessDownlevel.ts, 0, 22))
+>maybe : Symbol(maybe, Decl(shorthandPropertyAccessDownlevel.ts, 0, 13))
+>inner : Symbol(inner, Decl(shorthandPropertyAccessDownlevel.ts, 0, 22))
+>other : Symbol(other, Decl(shorthandPropertyAccessDownlevel.ts, 0, 47))
+

@@ -273,6 +273,7 @@ import type {
     SetAccessorDeclaration,
     ShiftOperator,
     ShiftOperatorOrHigher,
+    ShorthandPropertyAccessAssignment,
     ShorthandPropertyAssignment,
     SignatureDeclaration,
     SourceFile,
@@ -1188,6 +1189,15 @@ export declare namespace isShorthandPropertyAssignment {
     function Handle<T extends NodeHandleLike<Node>>(node: T): node is SpecializeNodeHandle<T, ShorthandPropertyAssignment>;
 }
 isShorthandPropertyAssignment.Handle = isShorthandPropertyAssignment as any;
+
+export function isShorthandPropertyAccessAssignment(node: Node): node is ShorthandPropertyAccessAssignment {
+    return node.kind === SyntaxKind.ShorthandPropertyAccessAssignment;
+}
+
+export declare namespace isShorthandPropertyAccessAssignment {
+    function Handle<T extends NodeHandleLike<Node>>(node: T): node is SpecializeNodeHandle<T, ShorthandPropertyAccessAssignment>;
+}
+isShorthandPropertyAccessAssignment.Handle = isShorthandPropertyAccessAssignment as any;
 
 export function isDeleteExpression(node: Node): node is DeleteExpression {
     return node.kind === SyntaxKind.DeleteExpression;

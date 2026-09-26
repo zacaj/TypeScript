@@ -1,0 +1,22 @@
+// === documentHighlights ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { [|c|]: string } };
+// declare function f(): { x: number };
+// const o = { a.b./*HIGHLIGHTS*/[|c|], (f()).x };
+// o.c;
+// o.x;
+// class C {
+// --- (line: 7) skipped ---
+
+
+
+// === documentHighlights ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { c: string } };
+// declare function f(): { x: number };
+// const o = { a.b.c, (f()).x };
+// o./*HIGHLIGHTS*/[|c|];
+// o.x;
+// class C {
+//     value = 1;
+// --- (line: 8) skipped ---

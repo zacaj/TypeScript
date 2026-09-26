@@ -1,0 +1,163 @@
+//// [tests/cases/compiler/shorthandPropertyAccess.ts] ////
+
+=== shorthandPropertyAccess.ts ===
+declare const a: { b: { c: string }, arr: { name: number }[], default: boolean };
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>b : { c: string; }
+>c : string
+>arr : { name: number; }[]
+>name : number
+>default : boolean
+
+declare const maybe: { inner?: { value: string } } | undefined;
+>maybe : { inner?: { value: string; }; } | undefined
+>inner : { value: string; } | undefined
+>value : string
+
+declare const nullable: { id: number } | null;
+>nullable : { id: number; } | null
+>id : number
+
+declare function f(): { x: string };
+>f : () => { x: string; }
+>x : string
+
+declare const foo: string;
+>foo : string
+
+// Property access chains
+export const o1 = { a.b };
+>o1 : { b: { c: string; }; }
+>{ a.b } : { b: { c: string; }; }
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>b : { c: string; }
+
+export const o2 = { a.b.c };
+>o2 : { c: string; }
+>{ a.b.c } : { c: string; }
+>a.b.c : string
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>b : { c: string; }
+>c : string
+
+export const o3 = { maybe?.inner?.value };
+>o3 : { value: string | undefined; }
+>{ maybe?.inner?.value } : { value: string | undefined; }
+>maybe?.inner?.value : string | undefined
+>maybe?.inner : { value: string; } | undefined
+>maybe : { inner?: { value: string; }; } | undefined
+>inner : { value: string; } | undefined
+>value : string | undefined
+
+export const o4 = { nullable!.id };
+>o4 : { id: number; }
+>{ nullable!.id } : { id: number; }
+>nullable!.id : number
+>nullable! : { id: number; }
+>nullable : { id: number; } | null
+>id : number
+
+export const o5 = { a.arr[0].name };
+>o5 : { name: number; }
+>{ a.arr[0].name } : { name: number; }
+>a.arr[0].name : number
+>a.arr[0] : { name: number; }
+>a.arr : { name: number; }[]
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>arr : { name: number; }[]
+>0 : 0
+>name : number
+
+export const o6 = { (f()).x };
+>o6 : { x: string; }
+>{ (f()).x } : { x: string; }
+>(f()).x : string
+>(f()) : { x: string; }
+>f() : { x: string; }
+>f : () => { x: string; }
+>x : string
+
+export const o7 = { a.default };
+>o7 : { default: boolean; }
+>{ a.default } : { default: boolean; }
+>a.default : boolean
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>default : boolean
+
+export const o8 = { maybe!.inner!.value! };
+>o8 : { value: string; }
+>{ maybe!.inner!.value! } : { value: string; }
+>maybe!.inner!.value! : string
+>maybe!.inner!.value : string
+>maybe!.inner! : { value: string; }
+>maybe!.inner : { value: string; } | undefined
+>maybe! : { inner?: { value: string; }; }
+>maybe : { inner?: { value: string; }; } | undefined
+>inner : { value: string; } | undefined
+>value : string
+
+export const o9 = { a.b.c, foo, other: 1, method() { return 1; }, ...a.b };
+>o9 : { c: string; foo: string; other: number; method(): number; }
+>{ a.b.c, foo, other: 1, method() { return 1; }, ...a.b } : { c: string; foo: string; other: number; method(): number; }
+>a.b.c : string
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>b : { c: string; }
+>c : string
+>foo : string
+>other : number
+>1 : 1
+>method : () => number
+>1 : 1
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>b : { c: string; }
+
+export const o10 = {
+>o10 : { c: string; }
+>{    a        .b        .c,} : { c: string; }
+
+    a
+>a        .b        .c : string
+>a        .b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+
+        .b
+>b : { c: string; }
+
+        .c,
+>c : string
+
+};
+
+class C {
+>C : C
+
+    value = 1;
+>value : number
+>1 : 1
+
+    get() {
+>get : () => { value: number; }
+
+        return { this.value };
+>{ this.value } : { value: number; }
+>this.value : number
+>this : this
+>value : number
+    }
+}
+
+// Contextual typing / assignability
+const t1: { c: number } = { a.b.c };
+>t1 : { c: number; }
+>c : number
+>{ a.b.c } : { c: string; }
+>a.b.c : string
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; default: boolean; }
+>b : { c: string; }
+>c : string
+

@@ -1888,6 +1888,14 @@
         "category": "Error",
         "code": 1558
     },
+    "A shorthand property expression must end with a property name.": {
+        "category": "Error",
+        "code": 1559
+    },
+    "A shorthand property expression cannot be used in a destructuring assignment target.": {
+        "category": "Error",
+        "code": 1560
+    },
 
     "The types of '{0}' are incompatible between these types.": {
         "category": "Error",
@@ -7182,6 +7190,10 @@
     "File rename is not supported by the editor": {
         "category": "Error",
         "code": 8040
+    },
+    "Shorthand property expressions can only be used in TypeScript files.": {
+        "category": "Error",
+        "code": 8041
     },
 
     "Declaration emit for this file requires using private name '{0}'. An explicit type annotation may unblock declaration emit.": {

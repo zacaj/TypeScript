@@ -1,0 +1,40 @@
+//// [tests/cases/compiler/shorthandPropertyAccessErrors.ts] ////
+
+=== shorthandPropertyAccessErrors.ts ===
+declare const a: { b: { c: string }, arr: { name: number }[] };
+>a : { b: { c: string; }; arr: { name: number; }[]; }
+>b : { c: string; }
+>c : string
+>arr : { name: number; }[]
+>name : number
+
+declare const foo: string;
+>foo : string
+
+// Duplicate key
+const d1 = { foo, a.b.c, c: 2 };
+>d1 : { foo: string; c: number; }
+>{ foo, a.b.c, c: 2 } : { foo: string; c: number; }
+>foo : string
+>a.b.c : string
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; }
+>b : { c: string; }
+>c : string
+>c : string
+>2 : 2
+
+const d2 = { a.b.c, a.b.c };
+>d2 : { c: string; }
+>{ a.b.c, a.b.c } : { c: string; }
+>a.b.c : string
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; }
+>b : { c: string; }
+>c : string
+>a.b.c : string
+>a.b : { c: string; }
+>a : { b: { c: string; }; arr: { name: number; }[]; }
+>b : { c: string; }
+>c : string
+

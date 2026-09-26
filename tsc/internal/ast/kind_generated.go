@@ -335,6 +335,7 @@ const (
 	// Property assignments
 	KindPropertyAssignment
 	KindShorthandPropertyAssignment
+	KindShorthandPropertyAccessAssignment
 	KindSpreadAssignment
 	// Enum
 	KindEnumMember

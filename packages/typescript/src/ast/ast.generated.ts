@@ -923,6 +923,10 @@ export interface ShorthandPropertyAssignment extends NodeBase, DeclarationBase, 
     readonly equalsToken?: EqualsToken;
     readonly objectAssignmentInitializer?: Expression;
 }
+export interface ShorthandPropertyAccessAssignment extends NodeBase, DeclarationBase, ObjectLiteralElementBase {
+    readonly kind: SyntaxKind.ShorthandPropertyAccessAssignment;
+    readonly expression: Expression;
+}
 export interface DeleteExpression extends UnaryExpressionBase {
     readonly kind: SyntaxKind.DeleteExpression;
     readonly expression: Expression;

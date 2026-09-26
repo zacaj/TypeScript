@@ -1,0 +1,16 @@
+shorthandPropertyAccessErrors.ts(5,26): error TS1117: An object literal cannot have multiple properties with the same name.
+shorthandPropertyAccessErrors.ts(6,25): error TS1117: An object literal cannot have multiple properties with the same name.
+
+
+==== shorthandPropertyAccessErrors.ts (2 errors) ====
+    declare const a: { b: { c: string }, arr: { name: number }[] };
+    declare const foo: string;
+    
+    // Duplicate key
+    const d1 = { foo, a.b.c, c: 2 };
+                             ~
+!!! error TS1117: An object literal cannot have multiple properties with the same name.
+    const d2 = { a.b.c, a.b.c };
+                            ~
+!!! error TS1117: An object literal cannot have multiple properties with the same name.
+    

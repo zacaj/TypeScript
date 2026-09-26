@@ -1,0 +1,37 @@
+//// [tests/cases/compiler/shorthandPropertyAccessErrors.ts] ////
+
+=== shorthandPropertyAccessErrors.ts ===
+declare const a: { b: { c: string }, arr: { name: number }[] };
+>a : Symbol(a, Decl(shorthandPropertyAccessErrors.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccessErrors.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 0, 23))
+>arr : Symbol(arr, Decl(shorthandPropertyAccessErrors.ts, 0, 36))
+>name : Symbol(name, Decl(shorthandPropertyAccessErrors.ts, 0, 43))
+
+declare const foo: string;
+>foo : Symbol(foo, Decl(shorthandPropertyAccessErrors.ts, 1, 13))
+
+// Duplicate key
+const d1 = { foo, a.b.c, c: 2 };
+>d1 : Symbol(d1, Decl(shorthandPropertyAccessErrors.ts, 4, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyAccessErrors.ts, 4, 12))
+>a.b.c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 0, 23))
+>a.b : Symbol(b, Decl(shorthandPropertyAccessErrors.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccessErrors.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccessErrors.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 0, 23))
+>c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 4, 17), Decl(shorthandPropertyAccessErrors.ts, 4, 24))
+
+const d2 = { a.b.c, a.b.c };
+>d2 : Symbol(d2, Decl(shorthandPropertyAccessErrors.ts, 5, 5))
+>a.b.c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 0, 23))
+>a.b : Symbol(b, Decl(shorthandPropertyAccessErrors.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccessErrors.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccessErrors.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 0, 23))
+>a.b.c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 0, 23))
+>a.b : Symbol(b, Decl(shorthandPropertyAccessErrors.ts, 0, 18))
+>a : Symbol(a, Decl(shorthandPropertyAccessErrors.ts, 0, 13))
+>b : Symbol(b, Decl(shorthandPropertyAccessErrors.ts, 0, 18))
+>c : Symbol(c, Decl(shorthandPropertyAccessErrors.ts, 0, 23))
+

@@ -379,6 +379,7 @@
             },
             "PropertyAssignment",
             "ShorthandPropertyAssignment",
+            "ShorthandPropertyAccessAssignment",
             "SpreadAssignment",
             {
                 "comment": "Enum"
@@ -3399,6 +3400,20 @@
                         "name": "ObjectAssignmentInitializer",
                         "type": "Expression",
                         "optional": true
+                    }
+                ]
+            },
+            "ShorthandPropertyAccessAssignment": {
+                "extends": [
+                    "NodeBase",
+                    "DeclarationBase",
+                    "ObjectLiteralElementBase",
+                    "CompositeBase"
+                ],
+                "members": [
+                    {
+                        "name": "Expression",
+                        "type": "Expression"
                     }
                 ]
             },

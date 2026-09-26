@@ -849,6 +849,8 @@ func (p *Parser) isListElement(parsingContext ParsingContext, inErrorRecovery bo
 		switch p.token {
 		case ast.KindOpenBracketToken, ast.KindAsteriskToken, ast.KindDotDotDotToken, ast.KindDotToken: // Not an object literal member, but don't want to close the object (see `tests/cases/fourslash/completionsDotInObjectLiteral.ts`)
 			return true
+		case ast.KindOpenParenToken: // Start of a shorthand property access, e.g. `{ (f()).x }`
+			return true
 		default:
 			return p.isLiteralPropertyName()
 		}
@@ -5689,6 +5691,9 @@ func (p *Parser) parseObjectLiteralElement() *ast.Node {
 		return result
 	}
 	modifiers := p.parseModifiersEx(true /*allowDecorators*/, false /*permitConstAsModifier*/, false /*stopOnStartOfClassStaticBlock*/)
+	if modifiers == nil && p.lookAhead((*Parser).isStartOfShorthandPropertyAccess) {
+		return p.parseShorthandPropertyAccessAssignment(pos, jsdoc)
+	}
 	if p.parseContextualModifier(ast.KindGetKeyword) {
 		return p.parseAccessorDeclaration(pos, jsdoc, modifiers, ast.KindGetAccessor, ParseFlagsNone)
 	}
@@ -5727,6 +5732,45 @@ func (p *Parser) parseObjectLiteralElement() *ast.Node {
 		node = p.factory.NewPropertyAssignment(modifiers, name, postfixToken, nil /*typeNode*/, initializer)
 	}
 	p.finishNode(node, pos)
+	p.withJSDoc(node, jsdoc)
+	return node
+}
+
+// Returns true for the start of a shorthand property whose value is an access chain,
+// e.g. `a.b`, `a?.b`, `a!.b`, `a[0].b`, `this.b`, or `(f()).b`.
+func (p *Parser) isStartOfShorthandPropertyAccess() bool {
+	if p.token == ast.KindOpenParenToken {
+		// A property name can never start with `(`.
+		return true
+	}
+	if !p.isIdentifier() && p.token != ast.KindThisKeyword && p.token != ast.KindSuperKeyword {
+		return false
+	}
+	p.nextToken()
+	if p.token == ast.KindExclamationToken {
+		p.nextToken()
+	}
+	return p.token == ast.KindDotToken || p.token == ast.KindQuestionDotToken || p.token == ast.KindOpenBracketToken
+}
+
+// ShorthandPropertyAccessAssignment:
+//
+//	LeftHandSideExpression ending in `.IdentifierName`, optionally followed by `!`
+//
+// `{ a.b.c }` is shorthand for `{ c: a.b.c }`.
+func (p *Parser) parseShorthandPropertyAccessAssignment(pos int, jsdoc jsdocScannerInfo) *ast.Node {
+	// Created up front so that, if needed for error recovery, it precedes the expression.
+	missingName := p.createMissingIdentifier()
+	expression := p.doInContext(ast.NodeFlagsDisallowInContext, false, (*Parser).parseLeftHandSideExpressionOrHigher)
+	var node *ast.Node
+	if name := ast.GetShorthandPropertyAccessName(expression); name != nil && !ast.NodeIsMissing(name) {
+		node = p.factory.NewShorthandPropertyAccessAssignment(expression)
+	} else {
+		p.parseErrorAtRange(expression.Loc, diagnostics.A_shorthand_property_expression_must_end_with_a_property_name)
+		node = p.factory.NewPropertyAssignment(nil /*modifiers*/, missingName, nil /*postfixToken*/, nil /*typeNode*/, expression)
+	}
+	p.finishNode(node, pos)
+	p.checkJSSyntax(node)
 	p.withJSDoc(node, jsdoc)
 	return node
 }
@@ -6819,6 +6863,8 @@ func (p *Parser) checkJSSyntax(node *ast.Node) *ast.Node {
 		p.jsErrorAtRange(node.Name().Loc, diagnostics.X_0_declarations_can_only_be_used_in_TypeScript_files, "enum")
 	case ast.KindNonNullExpression:
 		p.jsErrorAtRange(node.Loc, diagnostics.Non_null_assertions_can_only_be_used_in_TypeScript_files)
+	case ast.KindShorthandPropertyAccessAssignment:
+		p.jsErrorAtRange(node.Loc, diagnostics.Shorthand_property_expressions_can_only_be_used_in_TypeScript_files)
 	case ast.KindAsExpression:
 		p.jsErrorAtRange(node.Type().Loc, diagnostics.Type_assertion_expressions_can_only_be_used_in_TypeScript_files)
 	case ast.KindSatisfiesExpression:

@@ -1,0 +1,86 @@
+// === goToDefinition ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// <|declare const [|a|]: { b: { c: string } };|>
+// declare function f(): { x: number };
+// const o = { /*GOTO DEF*/a.b.c, (f()).x };
+// o.c;
+// o.x;
+// class C {
+// --- (line: 7) skipped ---
+
+
+
+// === goToDefinition ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { <|[|b|]: { c: string }|> };
+// declare function f(): { x: number };
+// const o = { a./*GOTO DEF*/b.c, (f()).x };
+// o.c;
+// o.x;
+// class C {
+// --- (line: 7) skipped ---
+
+
+
+// === goToDefinition ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { <|[|c|]: string|> } };
+// declare function f(): { x: number };
+// const o = { a.b./*GOTO DEF*/c, (f()).x };
+// o.c;
+// o.x;
+// class C {
+// --- (line: 7) skipped ---
+
+
+
+// === goToDefinition ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { c: string } };
+// declare function f(): { <|[|x|]: number|> };
+// const o = { a.b.c, (f())./*GOTO DEF*/x };
+// o.c;
+// o.x;
+// class C {
+// --- (line: 7) skipped ---
+
+
+
+// === goToDefinition ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { c: string } };
+// declare function f(): { x: number };
+// const o = { <|a.b.[|c|]|>, (f()).x };
+// o./*GOTO DEF*/c;
+// o.x;
+// class C {
+//     value = 1;
+// --- (line: 8) skipped ---
+
+
+
+// === goToDefinition ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// declare const a: { b: { c: string } };
+// declare function f(): { x: number };
+// const o = { a.b.c, <|(f()).[|x|]|> };
+// o.c;
+// o./*GOTO DEF*/x;
+// class C {
+//     value = 1;
+//     get() {
+// --- (line: 9) skipped ---
+
+
+
+// === goToDefinition ===
+// === /shorthandPropertyAccessNoCrash.ts ===
+// --- (line: 3) skipped ---
+// o.c;
+// o.x;
+// class C {
+//     <|[|value|] = 1;|>
+//     get() {
+//         return { this./*GOTO DEF*/value };
+//     }
+// }

@@ -336,6 +336,8 @@ func (n *Node) Expression() *Node {
 		return n.AsTypeOfExpression().Expression
 	case KindSpreadAssignment:
 		return n.AsSpreadAssignment().Expression
+	case KindShorthandPropertyAccessAssignment:
+		return n.AsShorthandPropertyAccessAssignment().Expression
 	case KindSpreadElement:
 		return n.AsSpreadElement().Expression
 	case KindTemplateSpan:
@@ -425,6 +427,8 @@ func (m *MutableNode) SetExpression(expr *Node) {
 		n.AsTypeOfExpression().Expression = expr
 	case KindSpreadAssignment:
 		n.AsSpreadAssignment().Expression = expr
+	case KindShorthandPropertyAccessAssignment:
+		n.AsShorthandPropertyAccessAssignment().Expression = expr
 	case KindSpreadElement:
 		n.AsSpreadElement().Expression = expr
 	case KindTemplateSpan:
@@ -2187,6 +2191,16 @@ func (node *PropertyAssignment) computeSubtreeFacts() SubtreeFacts {
 	return propagateSubtreeFacts(node.name) |
 		propagateSubtreeFacts(node.Type) |
 		propagateSubtreeFacts(node.Initializer)
+}
+
+// Name returns the final property name of the access chain, e.g. `d` in `{ a?.b!.c[2].d }`.
+func (node *ShorthandPropertyAccessAssignment) Name() *DeclarationName {
+	return GetShorthandPropertyAccessName(node.Expression)
+}
+
+func (node *ShorthandPropertyAccessAssignment) computeSubtreeFacts() SubtreeFacts {
+	// Always lowered to a PropertyAssignment by the type eraser.
+	return propagateSubtreeFacts(node.Expression) | SubtreeContainsTypeScript
 }
 
 func (node *ShorthandPropertyAssignment) computeSubtreeFacts() SubtreeFacts {

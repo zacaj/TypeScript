@@ -260,6 +260,15 @@ func (tx *TypeEraserTransformer) visit(node *ast.Node) *ast.Node {
 		n := node.AsTaggedTemplateExpression()
 		return tx.Factory().UpdateTaggedTemplateExpression(n, tx.Visitor().VisitNode(n.Tag), n.QuestionDotToken, nil, tx.Visitor().VisitNode(n.Template), n.Flags)
 
+	case ast.KindShorthandPropertyAccessAssignment:
+		// `{ a.b.c }` is lowered to `{ c: a.b.c }`
+		name := node.Name()
+		key := tx.Factory().NewIdentifier(name.Text())
+		assignment := tx.Factory().NewPropertyAssignment(nil /*modifiers*/, key, nil /*postfixToken*/, nil /*typeNode*/, tx.Visitor().VisitNode(node.Expression()))
+		tx.EmitContext().SetOriginal(assignment, node)
+		assignment.Loc = node.Loc
+		return assignment
+
 	case ast.KindNonNullExpression, ast.KindTypeAssertionExpression, ast.KindAsExpression, ast.KindSatisfiesExpression:
 		partial := tx.Factory().NewPartiallyEmittedExpression(tx.Visitor().VisitNode(node.Expression()))
 		tx.EmitContext().SetOriginal(partial, node)

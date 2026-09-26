@@ -1849,6 +1849,8 @@ func (p *Printer) emitObjectLiteralElement(node *ast.ObjectLiteralElement) {
 		p.emitPropertyAssignment(node.AsPropertyAssignment())
 	case ast.KindShorthandPropertyAssignment:
 		p.emitShorthandPropertyAssignment(node.AsShorthandPropertyAssignment())
+	case ast.KindShorthandPropertyAccessAssignment:
+		p.emitShorthandPropertyAccessAssignment(node.AsShorthandPropertyAccessAssignment())
 	case ast.KindSpreadAssignment:
 		p.emitSpreadAssignment(node.AsSpreadAssignment())
 	case ast.KindMethodDeclaration:
@@ -4572,6 +4574,14 @@ func (p *Printer) emitShorthandPropertyAssignment(node *ast.ShorthandPropertyAss
 	p.exitNode(node.AsNode(), state)
 }
 
+// Prints the TypeScript form `{ a.b.c }`. JS emit never reaches this, since the type eraser
+// lowers the node to a PropertyAssignment.
+func (p *Printer) emitShorthandPropertyAccessAssignment(node *ast.ShorthandPropertyAccessAssignment) {
+	state := p.enterNode(node.AsNode())
+	p.emitExpression(node.Expression, ast.OperatorPrecedenceDisallowComma)
+	p.exitNode(node.AsNode(), state)
+}
+
 func (p *Printer) emitSpreadAssignment(node *ast.SpreadAssignment) {
 	state := p.enterNode(node.AsNode())
 	if node.Expression != nil {
@@ -5240,6 +5250,8 @@ func (p *Printer) Write(node *ast.Node, sourceFile *ast.SourceFile, writer EmitT
 		p.emitPropertyAssignment(node.AsPropertyAssignment())
 	case ast.KindShorthandPropertyAssignment:
 		p.emitShorthandPropertyAssignment(node.AsShorthandPropertyAssignment())
+	case ast.KindShorthandPropertyAccessAssignment:
+		p.emitShorthandPropertyAccessAssignment(node.AsShorthandPropertyAccessAssignment())
 	case ast.KindSpreadAssignment:
 		p.emitSpreadAssignment(node.AsSpreadAssignment())
 

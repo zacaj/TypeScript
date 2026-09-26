@@ -12841,6 +12841,10 @@ func (c *Checker) checkObjectLiteralDestructuringPropertyAssignment(node *ast.No
 		c.checkGrammarForDisallowedTrailingComma(allProperties, diagnostics.A_rest_parameter_or_binding_pattern_may_not_have_a_trailing_comma)
 		return c.checkDestructuringAssignment(property.Expression(), t, CheckModeNormal, false)
 	}
+	if ast.IsShorthandPropertyAccessAssignment(property) {
+		c.error(property, diagnostics.A_shorthand_property_expression_cannot_be_used_in_a_destructuring_assignment_target)
+		return nil
+	}
 	c.error(property, diagnostics.Property_assignment_expected)
 	return nil
 }
@@ -13426,13 +13430,15 @@ func (c *Checker) checkObjectLiteral(node *ast.Node, checkMode CheckMode) *Type 
 		if memberDecl.Name() != nil && memberDecl.Name().Kind == ast.KindComputedPropertyName {
 			computedNameType = c.checkComputedPropertyName(memberDecl.Name())
 		}
-		if ast.IsPropertyAssignment(memberDecl) || ast.IsShorthandPropertyAssignment(memberDecl) || ast.IsObjectLiteralMethod(memberDecl) {
+		if ast.IsPropertyAssignment(memberDecl) || ast.IsShorthandPropertyAssignment(memberDecl) || ast.IsShorthandPropertyAccessAssignment(memberDecl) || ast.IsObjectLiteralMethod(memberDecl) {
 			var t *Type
 			switch memberDecl.Kind {
 			case ast.KindPropertyAssignment:
 				t = c.checkPropertyAssignment(memberDecl, checkMode)
 			case ast.KindShorthandPropertyAssignment:
 				t = c.checkShorthandPropertyAssignment(memberDecl, inDestructuringPattern, checkMode)
+			case ast.KindShorthandPropertyAccessAssignment:
+				t = c.checkExpressionForMutableLocation(memberDecl.Expression(), checkMode)
 			default:
 				t = c.checkObjectLiteralMethod(memberDecl, checkMode)
 			}
@@ -16929,6 +16935,8 @@ func (c *Checker) getTypeOfVariableOrParameterOrPropertyWorker(symbol *ast.Symbo
 		result = c.checkPropertyAssignment(declaration, CheckModeNormal)
 	case ast.KindShorthandPropertyAssignment:
 		result = c.checkShorthandPropertyAssignment(declaration, true /*inDestructuringPattern*/, CheckModeNormal)
+	case ast.KindShorthandPropertyAccessAssignment:
+		result = c.checkExpressionForMutableLocation(declaration.Expression(), CheckModeNormal)
 	case ast.KindMethodDeclaration:
 		result = c.checkObjectLiteralMethod(declaration, CheckModeNormal)
 	case ast.KindExportAssignment:
@@ -29777,7 +29785,8 @@ func (c *Checker) getContextualType(node *ast.Node, contextFlags ContextFlags) *
 	case ast.KindBinaryExpression:
 		return c.getContextualTypeForBinaryOperand(node, contextFlags)
 	case ast.KindPropertyAssignment,
-		ast.KindShorthandPropertyAssignment:
+		ast.KindShorthandPropertyAssignment,
+		ast.KindShorthandPropertyAccessAssignment:
 		return c.getContextualTypeForObjectLiteralElement(parent, contextFlags)
 	case ast.KindSpreadAssignment:
 		return c.getContextualType(parent.Parent, contextFlags)
