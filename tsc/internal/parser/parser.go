@@ -5727,6 +5727,7 @@ func (p *Parser) parseObjectLiteralElement() *ast.Node {
 		node = p.factory.NewPropertyAssignment(modifiers, name, postfixToken, nil /*typeNode*/, initializer)
 	}
 	p.finishNode(node, pos)
+	p.checkJSSyntax(node)
 	p.withJSDoc(node, jsdoc)
 	return node
 }
@@ -6819,6 +6820,10 @@ func (p *Parser) checkJSSyntax(node *ast.Node) *ast.Node {
 		p.jsErrorAtRange(node.Name().Loc, diagnostics.X_0_declarations_can_only_be_used_in_TypeScript_files, "enum")
 	case ast.KindNonNullExpression:
 		p.jsErrorAtRange(node.Loc, diagnostics.Non_null_assertions_can_only_be_used_in_TypeScript_files)
+	case ast.KindShorthandPropertyAssignment:
+		if token := node.AsShorthandPropertyAssignment().PostfixToken; token != nil && token.Kind == ast.KindExclamationToken {
+			p.jsErrorAtRange(token.Loc, diagnostics.Non_null_assertions_can_only_be_used_in_TypeScript_files)
+		}
 	case ast.KindAsExpression:
 		p.jsErrorAtRange(node.Type().Loc, diagnostics.Type_assertion_expressions_can_only_be_used_in_TypeScript_files)
 	case ast.KindSatisfiesExpression:

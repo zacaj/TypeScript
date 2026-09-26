@@ -1,0 +1,43 @@
+shorthandPropertyNonNullAssertion.ts(14,1): error TS18048: 'c.foo' is possibly 'undefined'.
+shorthandPropertyNonNullAssertion.ts(18,10): error TS1255: A definite assignment assertion '!' is not permitted in this context.
+shorthandPropertyNonNullAssertion.ts(19,16): error TS1255: A definite assignment assertion '!' is not permitted in this context.
+shorthandPropertyNonNullAssertion.ts(19,18): error TS1312: Did you mean to use a ':'? An '=' can only follow a property name when the containing object literal is part of a destructuring pattern.
+shorthandPropertyNonNullAssertion.ts(20,14): error TS1255: A definite assignment assertion '!' is not permitted in this context.
+shorthandPropertyNonNullAssertion.ts(21,16): error TS1162: An object member cannot be declared optional.
+
+
+==== shorthandPropertyNonNullAssertion.ts (6 errors) ====
+    declare const foo: string | undefined;
+    declare const bar: number | null;
+    declare let baz: { x: number } | null | undefined;
+    
+    const a = { foo! };
+    const aFoo: string = a.foo;
+    
+    const b = { foo!, bar!, other: 1, method() { return 1; } };
+    const bFoo: string = b.foo;
+    const bBar: number = b.bar;
+    
+    const c = { baz!, foo };
+    c.baz.x;
+    c.foo.length; // error: possibly undefined
+    ~~~~~
+!!! error TS18048: 'c.foo' is possibly 'undefined'.
+    
+    // Errors below
+    let target: string | undefined;
+    ({ target! } = { target: "" });
+             ~
+!!! error TS1255: A definite assignment assertion '!' is not permitted in this context.
+    const d = { foo! = "x" };
+                   ~
+!!! error TS1255: A definite assignment assertion '!' is not permitted in this context.
+                     ~
+!!! error TS1312: Did you mean to use a ':'? An '=' can only follow a property name when the containing object literal is part of a destructuring pattern.
+    const e = { a!: foo };
+                 ~
+!!! error TS1255: A definite assignment assertion '!' is not permitted in this context.
+    const f = { foo? };
+                   ~
+!!! error TS1162: An object member cannot be declared optional.
+    

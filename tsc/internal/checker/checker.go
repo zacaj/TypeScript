@@ -13927,12 +13927,21 @@ func (c *Checker) checkShorthandPropertyAssignment(node *ast.Node, inDestructuri
 		expr = node.Name()
 	}
 	expressionType := c.checkExpressionForMutableLocation(expr, checkMode)
+	if expr == node.Name() && !inDestructuringPattern && isShorthandNonNullAssertion(node) {
+		// `{ x! }` is shorthand for `{ x: x! }`
+		expressionType = c.GetNonNullableType(expressionType)
+	}
 	if node.Type() != nil {
 		t := c.getTypeFromTypeNode(node.Type())
 		c.checkTypeAssignableToAndOptionallyElaborate(expressionType, t, node, expr, nil /*headMessage*/, nil)
 		return t
 	}
 	return expressionType
+}
+
+func isShorthandNonNullAssertion(node *ast.Node) bool {
+	postfixToken := node.AsShorthandPropertyAssignment().PostfixToken
+	return postfixToken != nil && postfixToken.Kind == ast.KindExclamationToken
 }
 
 func (c *Checker) isInPropertyInitializerOrClassStaticBlock(node *ast.Node, ignoreArrowFunctions bool) bool {

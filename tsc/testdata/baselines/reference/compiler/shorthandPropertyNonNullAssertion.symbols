@@ -1,0 +1,82 @@
+//// [tests/cases/compiler/shorthandPropertyNonNullAssertion.ts] ////
+
+=== shorthandPropertyNonNullAssertion.ts ===
+declare const foo: string | undefined;
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 0, 13))
+
+declare const bar: number | null;
+>bar : Symbol(bar, Decl(shorthandPropertyNonNullAssertion.ts, 1, 13))
+
+declare let baz: { x: number } | null | undefined;
+>baz : Symbol(baz, Decl(shorthandPropertyNonNullAssertion.ts, 2, 11))
+>x : Symbol(x, Decl(shorthandPropertyNonNullAssertion.ts, 2, 18))
+
+const a = { foo! };
+>a : Symbol(a, Decl(shorthandPropertyNonNullAssertion.ts, 4, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 4, 11))
+
+const aFoo: string = a.foo;
+>aFoo : Symbol(aFoo, Decl(shorthandPropertyNonNullAssertion.ts, 5, 5))
+>a.foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 4, 11))
+>a : Symbol(a, Decl(shorthandPropertyNonNullAssertion.ts, 4, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 4, 11))
+
+const b = { foo!, bar!, other: 1, method() { return 1; } };
+>b : Symbol(b, Decl(shorthandPropertyNonNullAssertion.ts, 7, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 7, 11))
+>bar : Symbol(bar, Decl(shorthandPropertyNonNullAssertion.ts, 7, 17))
+>other : Symbol(other, Decl(shorthandPropertyNonNullAssertion.ts, 7, 23))
+>method : Symbol(method, Decl(shorthandPropertyNonNullAssertion.ts, 7, 33))
+
+const bFoo: string = b.foo;
+>bFoo : Symbol(bFoo, Decl(shorthandPropertyNonNullAssertion.ts, 8, 5))
+>b.foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 7, 11))
+>b : Symbol(b, Decl(shorthandPropertyNonNullAssertion.ts, 7, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 7, 11))
+
+const bBar: number = b.bar;
+>bBar : Symbol(bBar, Decl(shorthandPropertyNonNullAssertion.ts, 9, 5))
+>b.bar : Symbol(bar, Decl(shorthandPropertyNonNullAssertion.ts, 7, 17))
+>b : Symbol(b, Decl(shorthandPropertyNonNullAssertion.ts, 7, 5))
+>bar : Symbol(bar, Decl(shorthandPropertyNonNullAssertion.ts, 7, 17))
+
+const c = { baz!, foo };
+>c : Symbol(c, Decl(shorthandPropertyNonNullAssertion.ts, 11, 5))
+>baz : Symbol(baz, Decl(shorthandPropertyNonNullAssertion.ts, 11, 11))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 11, 17))
+
+c.baz.x;
+>c.baz.x : Symbol(x, Decl(shorthandPropertyNonNullAssertion.ts, 2, 18))
+>c.baz : Symbol(baz, Decl(shorthandPropertyNonNullAssertion.ts, 11, 11))
+>c : Symbol(c, Decl(shorthandPropertyNonNullAssertion.ts, 11, 5))
+>baz : Symbol(baz, Decl(shorthandPropertyNonNullAssertion.ts, 11, 11))
+>x : Symbol(x, Decl(shorthandPropertyNonNullAssertion.ts, 2, 18))
+
+c.foo.length; // error: possibly undefined
+>c.foo.length : Symbol(String.length, Decl(lib.es5.d.ts, --, --))
+>c.foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 11, 17))
+>c : Symbol(c, Decl(shorthandPropertyNonNullAssertion.ts, 11, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 11, 17))
+>length : Symbol(String.length, Decl(lib.es5.d.ts, --, --))
+
+// Errors below
+let target: string | undefined;
+>target : Symbol(target, Decl(shorthandPropertyNonNullAssertion.ts, 16, 3))
+
+({ target! } = { target: "" });
+>target : Symbol(target, Decl(shorthandPropertyNonNullAssertion.ts, 17, 2))
+>target : Symbol(target, Decl(shorthandPropertyNonNullAssertion.ts, 17, 16))
+
+const d = { foo! = "x" };
+>d : Symbol(d, Decl(shorthandPropertyNonNullAssertion.ts, 18, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 18, 11))
+
+const e = { a!: foo };
+>e : Symbol(e, Decl(shorthandPropertyNonNullAssertion.ts, 19, 5))
+>a : Symbol(a, Decl(shorthandPropertyNonNullAssertion.ts, 19, 11))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 0, 13))
+
+const f = { foo? };
+>f : Symbol(f, Decl(shorthandPropertyNonNullAssertion.ts, 20, 5))
+>foo : Symbol(foo, Decl(shorthandPropertyNonNullAssertion.ts, 20, 11))
+

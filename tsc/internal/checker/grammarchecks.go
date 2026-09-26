@@ -1075,15 +1075,22 @@ func (c *Checker) checkGrammarObjectLiteralExpression(node *ast.ObjectLiteralExp
 		case ast.KindShorthandPropertyAssignment,
 			ast.KindPropertyAssignment:
 			var commonProp *ast.NamedMemberBase
+			// A shorthand property may carry a non-null assertion (`{ x! }` means `{ x: x! }`),
+			// but not in a destructuring target or alongside a CoverInitializedName initializer.
+			allowNonNullAssertion := false
 			if prop.Kind == ast.KindShorthandPropertyAssignment {
 				prop.ClassLikeData()
-				commonProp = &prop.AsShorthandPropertyAssignment().NamedMemberBase
+				shorthandProp := prop.AsShorthandPropertyAssignment()
+				commonProp = &shorthandProp.NamedMemberBase
+				allowNonNullAssertion = !inDestructuring && shorthandProp.ObjectAssignmentInitializer == nil
 			} else {
 				commonProp = &prop.AsPropertyAssignment().NamedMemberBase
 			}
 
 			// Grammar checking for computedPropertyName and shorthandPropertyAssignment
-			c.checkGrammarForInvalidExclamationToken(commonProp.PostfixToken, diagnostics.A_definite_assignment_assertion_is_not_permitted_in_this_context)
+			if !allowNonNullAssertion {
+				c.checkGrammarForInvalidExclamationToken(commonProp.PostfixToken, diagnostics.A_definite_assignment_assertion_is_not_permitted_in_this_context)
+			}
 			c.checkGrammarForInvalidQuestionMark(commonProp.PostfixToken, diagnostics.An_object_member_cannot_be_declared_optional)
 
 			if name.Kind == ast.KindNumericLiteral {

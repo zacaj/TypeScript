@@ -1,0 +1,96 @@
+//// [tests/cases/compiler/shorthandPropertyNonNullAssertion.ts] ////
+
+=== shorthandPropertyNonNullAssertion.ts ===
+declare const foo: string | undefined;
+>foo : string | undefined
+
+declare const bar: number | null;
+>bar : number | null
+
+declare let baz: { x: number } | null | undefined;
+>baz : { x: number; } | null | undefined
+>x : number
+
+const a = { foo! };
+>a : { foo: string; }
+>{ foo! } : { foo: string; }
+>foo : string | undefined
+
+const aFoo: string = a.foo;
+>aFoo : string
+>a.foo : string
+>a : { foo: string; }
+>foo : string
+
+const b = { foo!, bar!, other: 1, method() { return 1; } };
+>b : { foo: string; bar: number; other: number; method(): number; }
+>{ foo!, bar!, other: 1, method() { return 1; } } : { foo: string; bar: number; other: number; method(): number; }
+>foo : string | undefined
+>bar : number | null
+>other : number
+>1 : 1
+>method : () => number
+>1 : 1
+
+const bFoo: string = b.foo;
+>bFoo : string
+>b.foo : string
+>b : { foo: string; bar: number; other: number; method(): number; }
+>foo : string
+
+const bBar: number = b.bar;
+>bBar : number
+>b.bar : number
+>b : { foo: string; bar: number; other: number; method(): number; }
+>bar : number
+
+const c = { baz!, foo };
+>c : { baz: { x: number; }; foo: string | undefined; }
+>{ baz!, foo } : { baz: { x: number; }; foo: string | undefined; }
+>baz : { x: number; } | null | undefined
+>foo : string | undefined
+
+c.baz.x;
+>c.baz.x : number
+>c.baz : { x: number; }
+>c : { baz: { x: number; }; foo: string | undefined; }
+>baz : { x: number; }
+>x : number
+
+c.foo.length; // error: possibly undefined
+>c.foo.length : number
+>c.foo : string | undefined
+>c : { baz: { x: number; }; foo: string | undefined; }
+>foo : string | undefined
+>length : number
+
+// Errors below
+let target: string | undefined;
+>target : string | undefined
+
+({ target! } = { target: "" });
+>({ target! } = { target: "" }) : { target: string; }
+>{ target! } = { target: "" } : { target: string; }
+>{ target! } : { target: string | undefined; }
+>target : string | undefined
+>{ target: "" } : { target: string; }
+>target : string
+>"" : ""
+
+const d = { foo! = "x" };
+>d : { foo: string; }
+>{ foo! = "x" } : { foo: string; }
+>foo : string | undefined
+>"x" : "x"
+
+const e = { a!: foo };
+>e : { a: string | undefined; }
+>{ a!: foo } : { a: string | undefined; }
+>a : string | undefined
+>foo : string | undefined
+
+const f = { foo? };
+>f : { foo: string | undefined; }
+>{ foo? } : { foo: string | undefined; }
+>foo : string | undefined
+
