@@ -12,7 +12,7 @@ reachabilityChecksNoCrash1.ts(1,71): error TS7006: Parameter 'T' implicitly has 
 reachabilityChecksNoCrash1.ts(1,72): error TS1005: ',' expected.
 reachabilityChecksNoCrash1.ts(1,73): error TS1109: Expression expected.
 reachabilityChecksNoCrash1.ts(1,74): error TS1128: Declaration or statement expected.
-reachabilityChecksNoCrash1.ts(1,76): error TS2365: Operator '>' cannot be applied to types 'boolean' and '{ const: never[]; for: any; of: any; asyncIterable: any; out: any; "": any; }'.
+reachabilityChecksNoCrash1.ts(1,76): error TS2365: Operator '>' cannot be applied to types 'boolean' and '{ const: never[]; for: any; of: any; asyncIterable: any; "": any; }'.
 reachabilityChecksNoCrash1.ts(1,84): error TS2304: Cannot find name 'T'.
 reachabilityChecksNoCrash1.ts(1,86): error TS1011: An element access expression should take an argument.
 reachabilityChecksNoCrash1.ts(2,11): error TS1005: ':' expected.
@@ -28,8 +28,8 @@ reachabilityChecksNoCrash1.ts(3,27): error TS1005: ',' expected.
 reachabilityChecksNoCrash1.ts(3,27): error TS18004: No value exists in scope for the shorthand property 'asyncIterable'. Either declare one or provide an initializer.
 reachabilityChecksNoCrash1.ts(3,40): error TS1005: ',' expected.
 reachabilityChecksNoCrash1.ts(3,42): error TS1136: Property assignment expected.
-reachabilityChecksNoCrash1.ts(4,9): error TS18004: No value exists in scope for the shorthand property 'out'. Either declare one or provide an initializer.
-reachabilityChecksNoCrash1.ts(4,12): error TS1005: ',' expected.
+reachabilityChecksNoCrash1.ts(4,9): error TS2304: Cannot find name 'out'.
+reachabilityChecksNoCrash1.ts(4,9): error TS1559: A shorthand property expression must end with a property name.
 reachabilityChecksNoCrash1.ts(4,24): error TS2304: Cannot find name 'v'.
 reachabilityChecksNoCrash1.ts(4,26): error TS1005: ',' expected.
 reachabilityChecksNoCrash1.ts(6,12): error TS2304: Cannot find name 'out'.
@@ -104,16 +104,16 @@ reachabilityChecksNoCrash1.ts(7,1): error TS1109: Expression expected.
             out.push(await v);
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
             ~~~
-!!! error TS18004: No value exists in scope for the shorthand property 'out'. Either declare one or provide an initializer.
-               ~
-!!! error TS1005: ',' expected.
+!!! error TS2304: Cannot find name 'out'.
+            ~~~~~~~~~~~~~~~~~
+!!! error TS1559: A shorthand property expression must end with a property name.
                            ~
 !!! error TS2304: Cannot find name 'v'.
                              ~
 !!! error TS1005: ',' expected.
         }
     ~~~~~
-!!! error TS2365: Operator '>' cannot be applied to types 'boolean' and '{ const: never[]; for: any; of: any; asyncIterable: any; out: any; "": any; }'.
+!!! error TS2365: Operator '>' cannot be applied to types 'boolean' and '{ const: never[]; for: any; of: any; asyncIterable: any; "": any; }'.
         return out;
                ~~~
 !!! error TS2304: Cannot find name 'out'.

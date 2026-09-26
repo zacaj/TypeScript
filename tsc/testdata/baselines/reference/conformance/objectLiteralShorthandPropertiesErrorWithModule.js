@@ -28,7 +28,7 @@ var n;
 (function (n) {
     var z = 10000;
     n.y = {
-        m, : .x // error
+        x: m.x // error
     };
 })(n || (n = {}));
 m.y.x;

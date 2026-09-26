@@ -17,7 +17,7 @@ export async function arrayFromAsync<T>(asyncIterable!: AsyncIterable<T>): Promi
 >T[] : any
 >T : any
 > : any
->{    const out = [];    for await (const v of asyncIterable) {        out.push(await v);    } : { const: never[]; for: any; of: any; asyncIterable: any; out: any; "": any; }
+>{    const out = [];    for await (const v of asyncIterable) {        out.push(await v);    } : { const: never[]; for: any; of: any; asyncIterable: any; "": any; }
 
     const out = [];
 >const : never[]
@@ -36,11 +36,10 @@ export async function arrayFromAsync<T>(asyncIterable!: AsyncIterable<T>): Promi
 >asyncIterable : any
 
         out.push(await v);
+> : any
+>out.push(await v) : any
+>out.push : any
 >out : any
-> : any
->.push(await v) : any
->.push : any
-> : any
 >push : any
 >await v : any
 >v : any

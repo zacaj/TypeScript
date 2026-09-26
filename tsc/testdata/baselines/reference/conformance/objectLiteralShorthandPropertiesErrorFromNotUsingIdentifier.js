@@ -37,8 +37,8 @@ var y = {
     typeof: 
 };
 var x = {
-    a, : .b,
-    a, ["ss"]: ,
-    a, [1]: ,
+    b: a.b,
+    : a["ss"],
+    : a[1],
 };
 var v = { class:  }; // error

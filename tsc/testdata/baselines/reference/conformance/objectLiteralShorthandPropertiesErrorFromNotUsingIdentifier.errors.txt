@@ -7,18 +7,15 @@ objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(8,10): error TS10
 objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(9,8): error TS1005: ':' expected.
 objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(10,10): error TS1005: ':' expected.
 objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(12,1): error TS1005: ':' expected.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(15,5): error TS18004: No value exists in scope for the shorthand property 'a'. Either declare one or provide an initializer.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(15,6): error TS1005: ',' expected.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(16,5): error TS18004: No value exists in scope for the shorthand property 'a'. Either declare one or provide an initializer.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(16,6): error TS1005: ',' expected.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(16,12): error TS1005: ':' expected.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(17,5): error TS18004: No value exists in scope for the shorthand property 'a'. Either declare one or provide an initializer.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(17,6): error TS1005: ',' expected.
-objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(17,9): error TS1005: ':' expected.
+objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(15,5): error TS2304: Cannot find name 'a'.
+objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(16,5): error TS2304: Cannot find name 'a'.
+objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(16,5): error TS1559: A shorthand property expression must end with a property name.
+objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(17,5): error TS2304: Cannot find name 'a'.
+objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(17,5): error TS1559: A shorthand property expression must end with a property name.
 objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(20,17): error TS1005: ':' expected.
 
 
-==== objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts (18 errors) ====
+==== objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts (15 errors) ====
     // errors
     var y = {
         "stringLiteral",
@@ -53,23 +50,17 @@ objectLiteralShorthandPropertiesErrorFromNotUsingIdentifier.ts(20,17): error TS1
     var x = {
         a.b,
         ~
-!!! error TS18004: No value exists in scope for the shorthand property 'a'. Either declare one or provide an initializer.
-         ~
-!!! error TS1005: ',' expected.
+!!! error TS2304: Cannot find name 'a'.
         a["ss"],
         ~
-!!! error TS18004: No value exists in scope for the shorthand property 'a'. Either declare one or provide an initializer.
-         ~
-!!! error TS1005: ',' expected.
-               ~
-!!! error TS1005: ':' expected.
+!!! error TS2304: Cannot find name 'a'.
+        ~~~~~~~
+!!! error TS1559: A shorthand property expression must end with a property name.
         a[1],
         ~
-!!! error TS18004: No value exists in scope for the shorthand property 'a'. Either declare one or provide an initializer.
-         ~
-!!! error TS1005: ',' expected.
-            ~
-!!! error TS1005: ':' expected.
+!!! error TS2304: Cannot find name 'a'.
+        ~~~~
+!!! error TS1559: A shorthand property expression must end with a property name.
     };
     
     var v = { class };  // error

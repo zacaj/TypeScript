@@ -43,27 +43,25 @@ var y = {
 > : any
 
 var x = {
->x : { a: any; "": any; ss: any; 1: any; }
->{    a.b,    a["ss"],    a[1],} : { a: any; "": any; ss: any; 1: any; }
+>x : { b: any; "": any; }
+>{    a.b,    a["ss"],    a[1],} : { b: any; "": any; }
 
     a.b,
+>a.b : any
 >a : any
-> : any
->.b : any
-> : any
 >b : any
 
     a["ss"],
->a : any
->["ss"] : any
->"ss" : "ss"
 > : any
+>a["ss"] : any
+>a : any
+>"ss" : "ss"
 
     a[1],
->a : any
->[1] : any
->1 : 1
 > : any
+>a[1] : any
+>a : any
+>1 : 1
 
 };
 

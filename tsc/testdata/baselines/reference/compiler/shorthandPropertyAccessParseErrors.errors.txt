@@ -1,5 +1,5 @@
-shorthandPropertyAccessParseErrors.ts(4,13): error TS1559: A shorthand property expression must end with a property name.
-shorthandPropertyAccessParseErrors.ts(5,13): error TS1559: A shorthand property expression must end with a property name.
+shorthandPropertyAccessParseErrors.ts(4,14): error TS1559: A shorthand property expression must end with a property name.
+shorthandPropertyAccessParseErrors.ts(5,14): error TS1559: A shorthand property expression must end with a property name.
 
 
 ==== shorthandPropertyAccessParseErrors.ts (2 errors) ====
@@ -7,9 +7,9 @@ shorthandPropertyAccessParseErrors.ts(5,13): error TS1559: A shorthand property 
     
     // Must end with a property name
     const e1 = { a.arr[0] };
-                ~~~~~~~~~
+                 ~~~~~~~~
 !!! error TS1559: A shorthand property expression must end with a property name.
     const e2 = { a.b.fn() };
-                ~~~~~~~~~
+                 ~~~~~~~~
 !!! error TS1559: A shorthand property expression must end with a property name.
     

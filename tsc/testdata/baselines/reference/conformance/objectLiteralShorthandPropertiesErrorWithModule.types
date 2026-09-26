@@ -21,14 +21,12 @@ namespace n {
 >10000 : 10000
 
     export var y = {
->y : { m: typeof m; "": any; }
->{        m.x  // error    } : { m: typeof m; "": any; }
+>y : { x: any; }
+>{        m.x  // error    } : { x: any; }
 
         m.x  // error
+>m.x : any
 >m : typeof m
-> : any
->.x : any
-> : any
 >x : any
 
     };
