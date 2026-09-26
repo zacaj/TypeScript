@@ -5746,9 +5746,13 @@ func (p *Parser) isStartOfShorthandPropertyAccess() bool {
 	if !p.isIdentifier() && p.token != ast.KindThisKeyword && p.token != ast.KindSuperKeyword {
 		return false
 	}
+	// `get [x]() {}` and `set [x](v) {}` are accessors with computed names.
+	isGetOrSet := p.token == ast.KindGetKeyword || p.token == ast.KindSetKeyword
 	p.nextToken()
 	if p.token == ast.KindExclamationToken {
 		p.nextToken()
+	} else if isGetOrSet && p.token == ast.KindOpenBracketToken {
+		return false
 	}
 	return p.token == ast.KindDotToken || p.token == ast.KindQuestionDotToken || p.token == ast.KindOpenBracketToken
 }
@@ -5766,7 +5770,7 @@ func (p *Parser) parseShorthandPropertyAccessAssignment(pos int, jsdoc jsdocScan
 	if name := ast.GetShorthandPropertyAccessName(expression); name != nil && !ast.NodeIsMissing(name) {
 		node = p.factory.NewShorthandPropertyAccessAssignment(expression)
 	} else {
-		p.parseErrorAtRange(expression.Loc, diagnostics.A_shorthand_property_expression_must_end_with_a_property_name)
+		p.parseErrorAtRange(p.skipRangeTrivia(expression.Loc), diagnostics.A_shorthand_property_expression_must_end_with_a_property_name)
 		node = p.factory.NewPropertyAssignment(nil /*modifiers*/, missingName, nil /*postfixToken*/, nil /*typeNode*/, expression)
 	}
 	p.finishNode(node, pos)
